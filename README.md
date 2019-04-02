@@ -11,7 +11,8 @@ Users
 ---
 
 Tasks
-|カラム名  |型  | メモ
+
+|カラム名  |型  |メモ |
 |---|---|---|
 |**id**	| **integer** | 
 |**user_id(FK)**	| **integer** | 
@@ -22,13 +23,15 @@ Tasks
 |status	| string |　ステータス
 ---
 Lables
-|カラム名  |型  | メモ
+
+|カラム名  |型  |メモ |
 |---|---|---|
 |**id**	| **integer**
 |word	| string | ラベル名
 ---
 Task_labels
-|カラム名  |型  | メモ
+
+|カラム名  |型  |メモ |
 |---|---|---|
 |**id**	| **integer**
 |**task_id(FK)**	| **integer**

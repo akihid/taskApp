@@ -1,13 +1,16 @@
 以下にテーブル構成を記載
 
 ---
+
 Users
+
 |カラム名  |型  | メモ
 |---|---|---|
 |**id**	| **integer** | 
 |name	| string | User名
 |mail	| striing | メールアドレス
 |password_digest	| string | パスワード
+
 ---
 
 Tasks
@@ -21,14 +24,18 @@ Tasks
 |limit	| date | 期限
 |priority	| string | 優先度
 |status	| string |　ステータス
+
 ---
+
 Lables
 
 |カラム名  |型  |メモ |
 |---|---|---|
 |**id**	| **integer**
 |word	| string | ラベル名
+
 ---
+
 Task_labels
 
 |カラム名  |型  |メモ |

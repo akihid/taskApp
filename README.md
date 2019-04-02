@@ -1,24 +1,35 @@
-# README
+以下にテーブル構成を記載
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+---
+Users
+|カラム名  |型  | メモ
+|---|---|---|
+|**id**	| **integer** | 
+|name	| string | User名
+|mail	| striing | メールアドレス
+|password_digest	| string | パスワード
+---
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Tasks
+|カラム名  |型  | メモ
+|---|---|---|
+|**id**	| **integer** | 
+|**user_id(FK)**	| **integer** | 
+|title	| striing | タスク名
+|contents	| text | タスクの内容
+|limit	| date | 期限
+|priority	| string | 優先度
+|status	| string |　ステータス
+---
+Lables
+|カラム名  |型  | メモ
+|---|---|---|
+|**id**	| **integer**
+|word	| string | ラベル名
+---
+Task_labels
+|カラム名  |型  | メモ
+|---|---|---|
+|**id**	| **integer**
+|**task_id(FK)**	| **integer**
+|**label_id(FK)**	| **integer**

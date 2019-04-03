@@ -21,7 +21,7 @@ class TasksController < ApplicationController
     @task = Task.new(task_params)
 
     if @task.save
-      flash[:success] = "新規登録完了"
+      flash[:success] = t('msg.new_complete')
       redirect_to tasks_path
     else
       render 'new'
@@ -33,7 +33,7 @@ class TasksController < ApplicationController
 
   def update
     if @task.update(task_params)
-      flash[:success] = "編集完了"
+      flash[:success] = t('msg.update_complete')
       redirect_to tasks_path
     else
       render 'edit'
@@ -42,7 +42,7 @@ class TasksController < ApplicationController
 
   def destroy
     @task.destroy
-    flash[:notice] = "削除完了"
+    flash[:notice] = t('msg.destroy_complete')
     redirect_to tasks_path
   end
 

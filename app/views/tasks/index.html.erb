@@ -1,21 +1,20 @@
-<h1>Tasks#index</h1>
+<h1><%= t('view.index_title') %></h1>
 
 <table>
-  <th>タスク名</th>
-  <th>内容</th>
+  <th><%= Task.human_attribute_name('title')%> </th>
+  <th><%= Task.human_attribute_name('content') %></th>
 
     <% @tasks.each do |task| %>
     <tr>
       <div>
         <td><%= task.title %></td>
         <td><%= task.content %></td>
-        <td><%= link_to "詳細", task_path(task.id)%></td>
-        <td><%= link_to "編集" , edit_task_path(task.id) %></td>
-        <td><%= link_to "削除", task_path(task.id), method: :delete, data:{ confirm: "削除してもよろしいですか？" } %></td>
-      </div>
+        <td><%= link_to t('btn.show'), task_path(task.id)%></td>
+        <td><%= link_to t('btn.update') , edit_task_path(task.id) %></td>
+        <td><%= link_to t('btn.destroy'), task_path(task.id), method: :delete, data:{ confirm: t('msg.confirm_destroy')} %>
       </tr>
     <% end %>
 
 </table>
 
-<%= link_to "新規作成" , new_task_path%>
+<%= link_to t('btn.new') , new_task_path%>

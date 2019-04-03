@@ -28,10 +28,6 @@ class TasksController < ApplicationController
     end
   end
 
-  def confirm
-    @task = Task.new(task_params)
-  end
-
   def edit
   end
 

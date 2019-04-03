@@ -1,0 +1,50 @@
+
+<%= form_with(model: @task , local: true) do |f| %>
+
+  <div class="form-group">
+    <%= f.label :title%>
+    <%= @task.title%>
+    <%= f.hidden_field :title%>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :content%>
+    <%= @task.content%>
+    <%= f.hidden_field :content%>
+  </div>
+
+    <div class="form-group">
+    <%= f.label :deadline_at%>
+    <%= @task.deadline_at%>
+    <%= f.hidden_field :deadline_at%>
+  </div>
+
+    <div class="form-group">
+    <%= f.label :priority%>
+    <%= @task.priority%>
+    <%= f.hidden_field :priority%>
+  </div>
+
+    <div class="form-group">
+    <%= f.label :status%>
+    <%= @task.status%>
+    <%= f.hidden_field :status%>
+  </div>
+
+  <%= f.submit '登録' %>
+
+
+<% end %>
+
+
+<%= form_with(model:@task , local: true ,url: new_task_path ,method: 'get') do |f|%>
+
+  <%= f.hidden_field :title %>
+  <%= f.hidden_field :content %>
+  <%= f.hidden_field :deadline_at %>
+  <%= f.hidden_field :priority %>
+  <%= f.hidden_field :status %>
+
+  <%= f.submit '戻る' , name: 'back'%>
+
+<% end %>

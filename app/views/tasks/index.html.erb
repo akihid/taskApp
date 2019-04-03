@@ -1,8 +1,8 @@
 <h1><%= t('view.index_title') %></h1>
 
 <table>
-  <th><%= t('activerecord.attributes.task.title') %> </th>
-  <th><%= t('activerecord.attributes.task.content') %></th>
+  <th><%= Task.human_attribute_name('title')%> </th>
+  <th><%= Task.human_attribute_name('content') %></th>
 
     <% @tasks.each do |task| %>
     <tr>

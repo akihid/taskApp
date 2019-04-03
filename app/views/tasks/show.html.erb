@@ -1,23 +1,23 @@
 <h1><%= t('view.show_title') %></h1>
 
   <div class="form-group">
-    <%= t('activerecord.attributes.task.title')%>:<%= @task.title%>
+    <%= Task.human_attribute_name('title')%>:<%= @task.title%>
   </div>
 
   <div class="form-group">
-    <%= t('activerecord.attributes.task.content')%>:<%= @task.content%>
+    <%= Task.human_attribute_name('content')%>:<%= @task.content%>
   </div>
 
     <div class="form-group">
-    <%= t('activerecord.attributes.task.deadline_at')%>:<%= @task.deadline_at%>
+    <%= Task.human_attribute_name('deadline_at')%>:<%= @task.deadline_at%>
   </div>
 
     <div class="form-group">
-    <%= t('activerecord.attributes.task.priority')%>:<%= @task.priority%>
+    <%= Task.human_attribute_name('priority')%>:<%= @task.priority%>
   </div>
 
     <div class="form-group">
-      <%= t('activerecord.attributes.task.status')%>:<%= @task.status%>
+      <%= Task.human_attribute_name('status')%>:<%= @task.status%>
     </div>
 
   <%= link_to t('btn.update') , edit_task_path(@task.id) %>

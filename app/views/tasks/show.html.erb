@@ -1,25 +1,25 @@
-<h1>タスク詳細</h1>
+<h1><%= t('view.show_title') %></h1>
 
   <div class="form-group">
-    <p>タイトル</p><%= @task.title%>
+    <%= t('activerecord.attributes.task.title')%>:<%= @task.title%>
   </div>
 
   <div class="form-group">
-    <p>内容</p><%= @task.content%>
+    <%= t('activerecord.attributes.task.content')%>:<%= @task.content%>
   </div>
 
     <div class="form-group">
-    <p>期限</p><%= @task.deadline_at%>
+    <%= t('activerecord.attributes.task.deadline_at')%>:<%= @task.deadline_at%>
   </div>
 
     <div class="form-group">
-    <p>優先度</p><%= @task.priority%>
+    <%= t('activerecord.attributes.task.priority')%>:<%= @task.priority%>
   </div>
 
     <div class="form-group">
-    <p>ステータス</p><%= @task.status%>
+      <%= t('activerecord.attributes.task.status')%>:<%= @task.status%>
     </div>
 
-  <%= link_to "編集" , edit_task_path(@task.id) %>
-  <%= link_to "削除", task_path(@task.id), method: :delete, data:{ confirm: "削除してもよろしいですか？" } %>
-  <%= link_to '一覧へ' , tasks_path %>
+  <%= link_to t('btn.update') , edit_task_path(@task.id) %>
+  <%= link_to t('btn.destroy'), task_path(@task.id), method: :delete, data:{ confirm: t('msg.confirm_destroy') } %>
+  <%= link_to t('btn.to_index') , tasks_path %>

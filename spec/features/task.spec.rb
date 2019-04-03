@@ -25,17 +25,12 @@ RSpec.feature "タスク管理機能", type: :feature do
 
     fill_in 'task[title]', with: 'タイトル名のテスト'
     fill_in 'task[content]', with: '内容のテスト'
-    # fill_in 'task[deadline_at]', with: '2019-04-01'
-    # fill_in 'task[priority]', with: '高'
-    # fill_in 'task[status]', with: '未着手'
 
     click_on '登録'
 
     expect(page).to have_content 'タイトル名のテスト'
     expect(page).to have_content '内容のテスト'
-    # expect(page).to have_content '2019-04-01'
-    # expect(page).to have_content '高'
-    # expect(page).to have_content '未着手'
+    expect(page).to have_content '新規登録完了'
   end
 
   scenario "タスク詳細のテスト" do
@@ -49,7 +44,6 @@ RSpec.feature "タスク管理機能", type: :feature do
     expect(page).to have_content '2019-04-01'
     expect(page).to have_content '高'
     expect(page).to have_content '未着手'
-
 
   end
 end

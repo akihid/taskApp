@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
 
-  before_action :set_task , only:[:edit ,:update ,:show]
+  before_action :set_task , only:[:edit ,:update ,:show ,:destroy]
 
   def index
     @tasks = Task.all
@@ -10,7 +10,7 @@ class TasksController < ApplicationController
   end
 
   def new
-    if paragitms[:back]
+    if params[:back]
       @task = Task.new(task_params)
     else
       @task = Task.new
@@ -32,8 +32,6 @@ class TasksController < ApplicationController
     @task = Task.new(task_params)
   end
 
-
-
   def edit
   end
 
@@ -44,6 +42,12 @@ class TasksController < ApplicationController
     else
       render 'edit'
     end
+  end
+
+  def destroy
+    @task.destroy
+    flash[:notice] = "削除完了"
+    redirect_to tasks_path
   end
 
   private

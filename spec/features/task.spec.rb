@@ -56,6 +56,33 @@ RSpec.feature "タスク管理機能", type: :feature do
     # todo: tableタグ以外使用した場合エラーになる書き方。
     first_task = all('table tr td')[0]
     expect(first_task).to have_content 'test_task_03'
+  end
 
+end
+
+RSpec.describe "タスクバリデーションチェック", type: :model do
+  it "titleが空ならバリデーションが通らない" do
+    task = Task.new(title: '', content: '失敗テスト')
+    expect(task).not_to be_valid
+  end
+
+  it "contentが空ならバリデーションが通らない" do
+    task = Task.new(title: '失敗テスト', content: '')
+    expect(task).not_to be_valid
+  end
+
+  it "titleが20文字以上ならバリデーションが通らない" do
+    task = Task.new(title: 'あ' * 21, content: '失敗テスト')
+    expect(task).not_to be_valid
+  end
+
+  it "contentが200文字以上ならバリデーションが通らない" do
+    task = Task.new(title: '失敗テスト', content: 'あ' * 201)
+    expect(task).not_to be_valid
+  end
+
+  it "title20字以下、content200時以下で値が設定されていればバリデーションが通る" do
+    task = Task.new(title: 'あ' * 20, content: 'あ' * 200)
+    expect(task).to be_valid
   end
 end

@@ -18,3 +18,6 @@ ja:
     destroy: 削除
     show: 詳細
     to_index: 一覧へ
+  err_msg:
+    err_count: 件
+    has_error: のエラーがあります

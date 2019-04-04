@@ -6,7 +6,7 @@ ja:
       task:
         title: "タスク名"
         content: "内容"
-        deadline_at: '期限'
+        deadline_at: '終了期限'
         priority: '優先度'
-        status: 'ステータス'
+        status: '状態'
 

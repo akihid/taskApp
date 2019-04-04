@@ -58,7 +58,23 @@ RSpec.feature "タスク管理機能", type: :feature do
     expect(first_task).to have_content 'test_task_03'
   end
 
+
+  scenario "タスク並び順（終了期限）のテスト" do
+    # backgroundで4/1-3まで作成済
+    visit tasks_path
+
+    click_on '終了期限でソートする'
+
+    # save_and_open_page
+    # todo: tableタグ以外使用した場合エラーになる書き方。
+    first_task = all('table tr td')[0]
+    expect(first_task).to have_content '2019-04-01'
+  end
+
 end
+
+
+
 
 RSpec.describe "タスクバリデーションチェック", type: :model do
   it "titleが空ならバリデーションが通らない" do

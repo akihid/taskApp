@@ -1,9 +1,16 @@
 class TasksController < ApplicationController
 
+  # 並び替えに使用していいカラムの配列（paramで受け取るもの)
+  VALID_SORT_COLUMNS = %w(deadline_at)
+
   before_action :set_task , only:[:edit ,:update ,:show ,:destroy]
 
   def index
-    @tasks = Task.all.order("created_at DESC")
+    sort = "created_at DESC"
+    if params[:sort]
+      sort = "#{params[:sort]} ASC" if VALID_SORT_COLUMNS.include?(params[:sort]) 
+    end
+    @tasks = Task.order(sort)
   end
 
   def show

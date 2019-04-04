@@ -1,14 +1,21 @@
 <h1><%= t('view.index_title') %></h1>
 
+<% if params[:sort] %>
+  <%= link_to t('btn.to_sort_created_at'), tasks_path %>
+<% else %>
+ <%= link_to t('btn.to_sort_deadline_at'), sort: "deadline_at" %>
+<% end %>
 <table>
   <th><%= Task.human_attribute_name('title')%> </th>
   <th><%= Task.human_attribute_name('content') %></th>
+  <th><%= Task.human_attribute_name('deadline_at') %></th>
 
     <% @tasks.each do |task| %>
     <tr>
       <div>
         <td><%= task.title %></td>
         <td><%= task.content %></td>
+        <td><%= task.deadline_at %></td>
         <td><%= link_to t('btn.show'), task_path(task.id)%></td>
         <td><%= link_to t('btn.update') , edit_task_path(task.id) %></td>
         <td><%= link_to t('btn.destroy'), task_path(task.id), method: :delete, data:{ confirm: t('msg.confirm_destroy')} %>

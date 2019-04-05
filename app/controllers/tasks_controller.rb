@@ -45,7 +45,8 @@ class TasksController < ApplicationController
   end
 
   def update
-    if @task.update!(task_params)
+    
+    if @task.update(task_params)
       flash[:success] = t('msg.update_complete')
       redirect_to tasks_path
     else

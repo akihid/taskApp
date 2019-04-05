@@ -13,7 +13,7 @@ FactoryBot.define do
     content { 'testtesttest02' }
     deadline_at { '2019-04-02' }
     priority { '高' }
-    status { '未着手' }
+    status { '着手' }
   end
 
   factory :third_task, class: Task do

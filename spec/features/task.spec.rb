@@ -36,14 +36,13 @@ RSpec.feature "タスク管理機能", type: :feature do
   end
 
   scenario "タスク詳細のテスト" do
-    Task.create!(id: 999 , title: 'test_task_09', content: 'testtesttest' , deadline_at: '2019-04-09' , priority: '高', status: '未着手')
+    Task.create!(id: 999 , title: 'test_task_09', content: 'testtesttest' , deadline_at: Date.today + 5, priority: '高', status: '未着手')
 
     visit task_path(999)
 
-    # save_and_open_page
     expect(page).to have_content 'test_task_09'
     expect(page).to have_content 'testtesttest'
-    expect(page).to have_content '2019-04-09'
+    expect(page).to have_content  Date.today + 5
     expect(page).to have_content '高'
     expect(page).to have_content '未着手'
 
@@ -68,7 +67,7 @@ RSpec.feature "タスク管理機能", type: :feature do
     # save_and_open_page
     # todo: tableタグ以外使用した場合エラーになる書き方。
     first_task = all('table tr td')[0]
-    expect(first_task).to have_content '2019-04-01'
+    expect(first_task).to have_content 'test_task_01'
   end
 
 end
@@ -97,7 +96,20 @@ RSpec.describe "タスクバリデーションチェック", type: :model do
     expect(task).not_to be_valid
   end
 
-  it "title20字以下、content200時以下で値が設定されていればバリデーションが通る" do
+  it "日付が過去ならバリデーションが通らない" do
+    task = Task.new(title: '失敗テスト', content: '失敗テスト' , deadline_at: Date.today - 1 )
+    expect(task).not_to be_valid
+  end
+
+  it "編集時に日付が過去でもバリデーションが通る" do
+
+    task = Task.create(id: 999 , title: 'test_task_09', content: 'testtesttest' , deadline_at: Date.today + 5, priority: '高', status: '未着手')
+    task.update(deadline_at: Date.today - 1)
+    expect(task).to be_valid
+
+  end
+
+  it "title20字以下、content200字以下で値が設定されていればバリデーションが通る" do
     task = Task.new(title: 'あ' * 20, content: 'あ' * 200)
     expect(task).to be_valid
   end

@@ -26,7 +26,6 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.new(task_params)
-
     if @task.save
       flash[:success] = t('msg.new_complete')
       redirect_to tasks_path
@@ -39,6 +38,7 @@ class TasksController < ApplicationController
   end
 
   def update
+    
     if @task.update(task_params)
       flash[:success] = t('msg.update_complete')
       redirect_to tasks_path

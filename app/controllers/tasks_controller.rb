@@ -6,11 +6,17 @@ class TasksController < ApplicationController
   before_action :set_task , only:[:edit ,:update ,:show ,:destroy]
 
   def index
+    @tasks = Task.all
     sort = "created_at DESC"
     if params[:sort]
       sort = "#{params[:sort]} ASC" if VALID_SORT_COLUMNS.include?(params[:sort]) 
     end
-    @tasks = Task.order(sort)
+    
+    #  paramsに設定されているときのみ検索処理
+    unless params[:title].nil?
+      search
+    end
+    @tasks = @tasks.order(sort)
   end
 
   def show
@@ -61,5 +67,12 @@ class TasksController < ApplicationController
 
   def set_task
     @task = Task.find(params[:id])
+  end
+
+  def search
+    title = params[:title]
+    status = params[:status]
+    @tasks = @tasks.where("title LIKE ? " , "%#{title}%") if title.present?
+    @tasks = @tasks.where("status LIKE ? " , "%#{status}%") if status.present?
   end
 end

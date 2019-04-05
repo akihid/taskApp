@@ -34,7 +34,8 @@
 
     <div class="form-group">
     <%= f.label :status%>
-    <%= f.text_field :status%>
+  <%= f.select :status,  Task.statuses.keys%>
+
   </div>
 
   <%= f.submit t('btn.submit') %>

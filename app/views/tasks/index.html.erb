@@ -8,9 +8,11 @@
 
 <%= form_with(url: tasks_path , method: 'get' , local: true)do |f| %>
   <%= Task.human_attribute_name('title') %>:<%= f.text_field :title , value: params[:title] %>
-  <%= Task.human_attribute_name('status') %>:<%= f.text_field :status , value: params[:status]%>
+  <%= Task.human_attribute_name('status') %>:<%= f.select :status ,Task.statuses, :include_blank => true , selected: params[:status] %>
   <%= f.submit t('btn.search') %>
+  <%= link_to t('btn.clear'), tasks_path %>
 <% end %>
+
 
 
 <table>

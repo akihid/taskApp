@@ -14,6 +14,7 @@ class TasksController < ApplicationController
     
     #  paramsに設定されているときのみ検索処理
     unless params[:title].nil?
+      # binding.pry
       search
     end
     @tasks = @tasks.order(sort)
@@ -32,7 +33,6 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.new(task_params)
-
     if @task.save
       flash[:success] = t('msg.new_complete')
       redirect_to tasks_path
@@ -45,7 +45,7 @@ class TasksController < ApplicationController
   end
 
   def update
-    if @task.update(task_params)
+    if @task.update!(task_params)
       flash[:success] = t('msg.update_complete')
       redirect_to tasks_path
     else
@@ -73,6 +73,6 @@ class TasksController < ApplicationController
     title = params[:title]
     status = params[:status]
     @tasks = @tasks.where("title LIKE ? " , "%#{title}%") if title.present?
-    @tasks = @tasks.where("status LIKE ? " , "%#{status}%") if status.present?
+    @tasks = @tasks.where("status = ? " , status) if status.present?
   end
 end

@@ -19,6 +19,7 @@ ja:
     destroy: 削除
     show: 詳細
     to_index: 一覧へ
+    clear: クリア
     to_sort_deadline_at : 終了期限でソートする
     to_sort_created_at : 登録順でソートする
   label:

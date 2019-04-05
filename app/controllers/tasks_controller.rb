@@ -6,7 +6,6 @@ class TasksController < ApplicationController
   before_action :set_task , only:[:edit ,:update ,:show ,:destroy]
 
   def index
-    @tasks = Task.all
     sort = "created_at DESC"
     if params[:sort]
       sort = "#{params[:sort]} ASC" if VALID_SORT_COLUMNS.include?(params[:sort]) 
@@ -14,8 +13,9 @@ class TasksController < ApplicationController
     
     #  paramsに設定されているときのみ検索処理
     unless params[:title].nil?
-      # binding.pry
-      search
+      @tasks = Task.search_task(params[:title],params[:status])
+    else
+      @tasks = Task.all
     end
     @tasks = @tasks.order(sort)
   end
@@ -67,12 +67,5 @@ class TasksController < ApplicationController
 
   def set_task
     @task = Task.find(params[:id])
-  end
-
-  def search
-    title = params[:title]
-    status = params[:status]
-    @tasks = @tasks.where("title LIKE ? " , "%#{title}%") if title.present?
-    @tasks = @tasks.where("status = ? " , status) if status.present?
   end
 end

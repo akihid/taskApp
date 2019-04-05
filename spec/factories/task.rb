@@ -5,7 +5,7 @@ FactoryBot.define do
     content { 'testtesttest01' }
     deadline_at { '2019-04-01' }
     priority { '高' }
-    status { '未着手' }
+    status { 0 }
   end
 
   factory :second_task, class: Task do
@@ -13,7 +13,7 @@ FactoryBot.define do
     content { 'testtesttest02' }
     deadline_at { '2019-04-02' }
     priority { '高' }
-    status { '着手' }
+    status { 1 }
   end
 
   factory :third_task, class: Task do
@@ -21,6 +21,6 @@ FactoryBot.define do
     content { 'testtesttest03' }
     deadline_at { '2019-04-03' }
     priority { '高' }
-    status { '未着手' }
+    status { 0 }
   end
 end

@@ -4,6 +4,7 @@
   <%= link_to t('btn.to_sort_created_at'), tasks_path %>
 <% else %>
   <%= link_to t('btn.to_sort_deadline_at'), sort: "deadline_at"%>
+  <%= link_to t('btn.to_sort_priority'), sort: "priority"%>
 <% end %>
 
 <%= form_with(url: tasks_path , method: 'get' , local: true)do |f| %>
@@ -19,6 +20,7 @@
   <th><%= Task.human_attribute_name('title')%></th>
   <th><%= Task.human_attribute_name('content') %></th>
   <th><%= Task.human_attribute_name('deadline_at') %></th>
+  <th><%= Task.human_attribute_name('priority') %></th>
 
 
   <% @tasks.each do |task| %>
@@ -26,6 +28,7 @@
       <td><%= task.title %></td>
       <td><%= task.content %></td>
       <td><%= task.deadline_at %></td>
+      <td><%= task.priority %></td>
       <td><%= link_to t('btn.show'), task_path(task.id)%></td>
       <td><%= link_to t('btn.update') , edit_task_path(task.id) %></td>
       <td><%= link_to t('btn.destroy'), task_path(task.id), method: :delete, data:{ confirm: t('msg.confirm_destroy')} %></td>

@@ -3,6 +3,8 @@ class Task < ApplicationRecord
   validates :content , presence: true , length: {maximum:200}
   enum status: { 未着手:0, 着手:1, 完了:2}
   validates :status, inclusion:{ in: Task.statuses.keys}
+  enum priority: { 高:0, 中:1, 低:2}
+  validates :priority, inclusion:{ in: Task.priorities.keys}
 
   scope :search_task, ->(title , status) do
 

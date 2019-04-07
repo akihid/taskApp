@@ -1,7 +1,7 @@
 class TasksController < ApplicationController
 
   # 並び替えに使用していいカラムの配列（paramで受け取るもの)
-  VALID_SORT_COLUMNS = %w(deadline_at)
+  VALID_SORT_COLUMNS = %w(deadline_at , priority)
 
   before_action :set_task , only:[:edit ,:update ,:show ,:destroy]
 

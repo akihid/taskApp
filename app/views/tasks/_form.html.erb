@@ -9,7 +9,6 @@
   </div>
 <% end %>
 
-
 <%= form_with(model: @task , local: true) do |f| %>
 
   <div class="form-group">
@@ -34,12 +33,10 @@
 
   <div class="form-group">
     <%= f.label :status%>
-    <%= f.text_field :status%>
+    <%= f.select :status,  Task.statuses.keys%>
   </div>
 
   <%= f.submit t('btn.submit') %>
   <%= link_to t('btn.to_index') , tasks_path %>
-
-
 
 <% end %>

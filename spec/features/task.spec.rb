@@ -57,7 +57,6 @@ RSpec.feature "タスク管理機能", type: :feature do
     expect(first_task).to have_content 'test_task_03'
   end
 
-
   scenario "タスク並び順（終了期限）のテスト" do
     # backgroundで4/1-3まで作成済
     visit tasks_path
@@ -71,9 +70,58 @@ RSpec.feature "タスク管理機能", type: :feature do
   end
 
 end
+ 
+RSpec.feature "タスク検索機能", type: :feature do
 
+  background do
+    # あらかじめタスク一覧のテストで使用するためのタスクを二つ作成する
+    FactoryBot.create(:task)
+    FactoryBot.create(:second_task)
+    FactoryBot.create(:third_task)
+  end
 
+  scenario "タスク検索（タスク名）のテスト" do
+    visit tasks_path
 
+    fill_in 'title', with: 'test_task_01'
+
+    click_on '検索'
+
+    expect(all('table tr').size).to eq(1)
+    expect(page).to have_content 'test_task_01'
+    expect(page).to_not have_content 'test_task_02'
+    expect(page).to_not have_content 'test_task_03'
+  end
+
+  scenario "タスク検索（状態）のテスト" do
+    visit tasks_path
+
+    select '未着手', from: 'status'
+
+    click_on '検索'
+
+    expect(all('table tr').size).to eq(2)
+    expect(page).to have_content 'test_task_01'
+    expect(page).to_not have_content 'test_task_02'
+    expect(page).to have_content 'test_task_03'
+    
+  end
+
+  scenario "タスク検索（タスク名と状態）のテスト" do
+    visit tasks_path
+
+    fill_in 'title', with: 'test_task_03'
+    select '未着手', from: 'status'
+
+    click_on '検索'
+    
+    expect(all('table tr').size).to eq(1)
+    expect(page).to_not have_content 'test_task_01'
+    expect(page).to_not have_content 'test_task_02'
+    expect(page).to have_content 'test_task_03'
+  end
+
+end
 
 RSpec.describe "タスクバリデーションチェック", type: :model do
   it "titleが空ならバリデーションが通らない" do

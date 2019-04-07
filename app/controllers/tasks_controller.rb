@@ -10,7 +10,14 @@ class TasksController < ApplicationController
     if params[:sort]
       sort = "#{params[:sort]} ASC" if VALID_SORT_COLUMNS.include?(params[:sort]) 
     end
-    @tasks = Task.order(sort)
+    
+    #  paramsに設定されているときのみ検索処理
+    unless params[:title].nil?
+      @tasks = Task.search_task(params[:title],params[:status])
+    else
+      @tasks = Task.all
+    end
+    @tasks = @tasks.order(sort)
   end
 
   def show

@@ -20,10 +20,10 @@ Tasks
 |**id**	| **integer** | 
 |**user_id(FK)**	| **integer** | 
 |title	| striing | タスク名
-|contents	| text | タスクの内容
-|limit	| date | 期限
+|content	| text | タスクの内容
+|deadline_at	| date | 期限
 |priority	| string | 優先度
-|status	| string |　ステータス
+|status	| string | ステータス
 
 ---
 
@@ -43,3 +43,15 @@ Task_labels
 |**id**	| **integer**
 |**task_id(FK)**	| **integer**
 |**label_id(FK)**	| **integer**
+
+---
+
+* デプロイ手順
+
+```
+heroku create
+heroku buildpacks:set heroku/ruby
+heroku buildpacks:add --index 1 heroku/nodejs
+git push heroku master
+heroku run rails db:migrate
+```

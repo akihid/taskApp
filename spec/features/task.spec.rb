@@ -69,6 +69,15 @@ RSpec.feature "タスク管理機能", type: :feature do
     expect(first_task).to have_content 'test_task_01'
   end
 
+  scenario "タスク並び順（優先順位）のテスト" do
+    visit tasks_path
+
+    click_on '優先順位でソートする'
+
+    first_task = all('table tr td')[0]
+    expect(first_task).to have_content 'test_task_01'
+  end
+
 end
  
 RSpec.feature "タスク検索機能", type: :feature do

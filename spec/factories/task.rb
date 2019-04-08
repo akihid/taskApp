@@ -12,7 +12,7 @@ FactoryBot.define do
     title { 'test_task_02' }
     content { 'testtesttest02' }
     deadline_at { Date.today + 1 }
-    priority { '高' }
+    priority { '中' }
     status { 1 }
   end
 
@@ -20,7 +20,7 @@ FactoryBot.define do
     title { 'test_task_03' }
     content { 'testtesttest03' }
     deadline_at { Date.today + 2 }
-    priority { '高' }
+    priority { '低' }
     status { 0 }
   end
 end

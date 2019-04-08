@@ -22,7 +22,7 @@
   <th><%= Task.human_attribute_name('deadline_at') %></th>
   <th><%= Task.human_attribute_name('priority') %></th>
 
-
+  <%= paginate @tasks %>
   <% @tasks.each do |task| %>
     <tr>
       <td><%= task.title %></td>

@@ -1,4 +1,4 @@
-10000.times do |n|
+100.times do |n|
   title = "test#{n}"
   content = "test"
   

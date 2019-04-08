@@ -132,6 +132,74 @@ RSpec.feature "タスク検索機能", type: :feature do
 
 end
 
+
+RSpec.feature "タスク検索機能", type: :feature do
+
+  scenario "ページャーテスト（次へ）" do
+
+    30.times do |i|
+      Task.create!(id: i , title: "test_task_#{i}", content: 'testtesttest' , deadline_at: Date.today , priority: '高', status: '未着手')
+    end
+
+    visit tasks_path
+    
+    click_on '次 ›'
+    save_and_open_page
+    expect(all('table tr').size).to eq(10)
+    first_task = all('table tr td')[0]
+    expect(first_task).to have_content 'test_task_19'
+  end
+
+  scenario "ページャーテスト（最後へ）" do
+
+    30.times do |i|
+      Task.create!(id: i , title: "test_task_#{i}", content: 'testtesttest' , deadline_at: Date.today , priority: '高', status: '未着手')
+    end
+
+    visit tasks_path
+    
+    click_on '最後 »'
+    save_and_open_page
+    expect(all('table tr').size).to eq(10)
+    first_task = all('table tr td')[0]
+    expect(first_task).to have_content 'test_task_9'
+  end
+
+  scenario "ページャーテスト（前へ）" do
+
+    50.times do |i|
+      Task.create!(id: i , title: "test_task_#{i}", content: 'testtesttest' , deadline_at: Date.today , priority: '高', status: '未着手')
+    end
+
+    visit tasks_path
+    
+    click_on '最後 »'
+    click_on '‹ 前'
+    save_and_open_page
+    expect(all('table tr').size).to eq(10)
+    first_task = all('table tr td')[0]
+    expect(first_task).to have_content 'test_task_19'
+  end
+
+  scenario "ページャーテスト（最初へ）" do
+
+    50.times do |i|
+      Task.create!(id: i , title: "test_task_#{i}", content: 'testtesttest' , deadline_at: Date.today , priority: '高', status: '未着手')
+    end
+
+    visit tasks_path
+    
+    click_on '最後 »'
+    click_on '« 最初'
+    save_and_open_page
+    expect(all('table tr').size).to eq(10)
+    first_task = all('table tr td')[0]
+    expect(first_task).to have_content 'test_task_49'
+  end
+
+
+end
+
 RSpec.describe "タスクバリデーションチェック", type: :model do
   it "titleが空ならバリデーションが通らない" do
     task = Task.new(title: '', content: '失敗テスト')

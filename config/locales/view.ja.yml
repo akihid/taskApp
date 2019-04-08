@@ -1,10 +1,12 @@
 ---
 ja:
   view:
+    page_title: タスク管理アプリ
     index_title: タスク一覧
     new_title: タスク作成
     edit_title: タスク編集
     show_title: タスク詳細
+    footer_title: © 2015-2019 Copyright .
   msg:
     new_complete: 新規登録完了
     update_complete: 編集完了

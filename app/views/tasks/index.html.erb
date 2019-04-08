@@ -1,51 +1,53 @@
-<h1><%= t('view.index_title') %></h1>
+<div class="width_80">
+  <h1><%= t('view.index_title') %></h1>
 
-<div class="search_container">
+  <div class="search_container">
 
-  <%= form_with(url: tasks_path , method: 'get' , local: true)do |f| %>
-    <%= f.label t('label.sort')%>:
-    <%= f.select :sort, [[t('btn.to_sort_created_at') , ""] , [t('btn.to_sort_deadline_at'), "deadline_at"],
-                         [t('btn.to_sort_priority'), "priority"]],:include_blank => true , selected: params[:sort]%><br>
-    <%= f.label Task.human_attribute_name('title') %>:<%= f.text_field :title , value: params[:title] %>
-    <%= f.label Task.human_attribute_name('status') %>:<%= f.select :status ,Task.statuses, :include_blank => true , selected: params[:status] %>
-    <%= f.submit t('btn.search') ,class:"btn-default-xs"%>
-    <%= link_to t('btn.clear'), tasks_path ,class:"btn-default-xs"%>
-  <% end %>
+    <%= form_with(url: tasks_path , method: 'get' , local: true)do |f| %>
+      <%= f.label t('label.sort')%>:
+      <%= f.select :sort, [[t('btn.to_sort_created_at') , "created_at"] , [t('btn.to_sort_deadline_at'), "deadline_at"],
+                          [t('btn.to_sort_priority'), "priority"]],include_blank:true , selected: params[:sort] %><br>
+      <%= f.label Task.human_attribute_name('title') %>:<%= f.text_field :title , value: params[:title] %>
+      <%= f.label Task.human_attribute_name('status') %>:<%= f.select :status ,Task.statuses, include_blank: true , selected: params[:status] %>
+      <%= f.submit t('btn.search') ,class:"btn-sm"%>
+      <%= link_to t('btn.clear'), tasks_path ,class:"btn-sm btn-dark"%>
+    <% end %>
+  </div>
+
+  <%= link_to t('btn.new') , new_task_path ,class: "btn-sm btn-dark"%>
+
+  <%= paginate @tasks %>
+
+  <table class="index_container">
+    <th class="width_20"><%= Task.human_attribute_name('title')%></th>
+    <th class="width_30"><%= Task.human_attribute_name('content') %></th>
+    <th class="width_20"><%= Task.human_attribute_name('deadline_at') %></th>
+    <th class="width_10"><%= Task.human_attribute_name('priority') %></th>
+    <th class="width_10"><%= Task.human_attribute_name('status') %></th>
+    <th class="width_10"></th>
+
+    
+    <% @tasks.each do |task| %>
+      <tr>
+        <td class="width_20"><%= task.title %></td>
+        <td class="width_30"><%= task.content %></td>
+        <td class="width_20"><%= task.deadline_at %></td>
+        <td class="width_10"><%= task.priority %></td>
+        <td class="width_10"><%= task.status %></td>
+        <td class="width_10">               
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              ■
+            </a>
+            <div class="dropdown-menu mr-auto" aria-labelledby="navbarDropdownMenuLink">
+              <%= link_to t('btn.show'), task_path(task.id),class:"btn-sm btn-secondary margin_left5"%><br>
+              <%= link_to t('btn.update') , edit_task_path(task.id) ,class:"btn-sm btn-primary margin_left5"%><br>
+              <%= link_to t('btn.destroy'), task_path(task.id), method: :delete, data:{ confirm: t('msg.confirm_destroy')} ,class:"btn-sm btn-danger margin_left5"%><br>
+            </div>
+          </li>
+        </td>
+      </tr>
+    <% end %>
+
+  </table>
 </div>
-
-<%= link_to t('btn.new') , new_task_path ,class: "btn-default-xs"%>
-
-<%= paginate @tasks %>
-
-<table class="index_container">
-  <th class="width_20"><%= Task.human_attribute_name('title')%></th>
-  <th class="width_30"><%= Task.human_attribute_name('content') %></th>
-  <th class="width_20"><%= Task.human_attribute_name('deadline_at') %></th>
-  <th class="width_10"><%= Task.human_attribute_name('priority') %></th>
-  <th class="width_10"><%= Task.human_attribute_name('status') %></th>
-  <th class="width_10"></th>
-
-  
-  <% @tasks.each do |task| %>
-    <tr>
-      <td class="width_20"><%= task.title %></td>
-      <td class="width_30"><%= task.content %></td>
-      <td class="width_20"><%= task.deadline_at %></td>
-      <td class="width_10"><%= task.priority %></td>
-      <td class="width_10"><%= task.status %></td>
-      <td class="width_10">               
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            ■
-          </a>
-          <div class="dropdown-menu mr-auto" aria-labelledby="navbarDropdownMenuLink">
-            <%= link_to t('btn.show'), task_path(task.id)%><br>
-            <%= link_to t('btn.update') , edit_task_path(task.id) %><br>
-            <%= link_to t('btn.destroy'), task_path(task.id), method: :delete, data:{ confirm: t('msg.confirm_destroy')} %><br>
-          </div>
-         </li>
-      </td>
-    </tr>
-  <% end %>
-
-</table>

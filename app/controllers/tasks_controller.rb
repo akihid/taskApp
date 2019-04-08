@@ -7,7 +7,6 @@ class TasksController < ApplicationController
 
   def index
     sort = "created_at DESC"
-    # binding.pry
     if params[:sort]
       sort = "#{params[:sort]} ASC" if VALID_SORT_COLUMNS.include?(params[:sort]) 
     end

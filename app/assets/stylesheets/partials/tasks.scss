@@ -1,12 +1,26 @@
 
 .search_container{
-  height:60px;
+  height:70px;
   margin-top: 5px;
   padding-top:5px;
+  margin-bottom: 10px;
   font-size: 10px;
   border: 1px solid #ccc;
   background: #F8F8F8;
   text-align: left;
+}
+
+.form_container{
+  height:400px;
+  width: 100%;
+  margin-top: 5px;
+  padding-top:5px;
+  font-size: 10px;
+  border: 1px solid #ccc;
+  border-style: solid;
+  background: #F8F8F8;
+  text-align: left;
+  overflow: scroll;
 }
 
 .index_container{

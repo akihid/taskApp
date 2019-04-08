@@ -61,8 +61,8 @@ RSpec.feature "タスク管理機能", type: :feature do
     # backgroundで4/1-3まで作成済
     visit tasks_path
 
-    click_on '終了期限でソートする'
-
+    select '終了期限でソートする', from: 'sort'
+    click_on '検索'
     # save_and_open_page
     # todo: tableタグ以外使用した場合エラーになる書き方。
     first_task = all('table tr td')[0]
@@ -72,8 +72,8 @@ RSpec.feature "タスク管理機能", type: :feature do
   scenario "タスク並び順（優先順位）のテスト" do
     visit tasks_path
 
-    click_on '優先順位でソートする'
-
+    select '優先順位でソートする', from: 'sort'
+    click_on '検索'
     first_task = all('table tr td')[0]
     expect(first_task).to have_content 'test_task_01'
   end
@@ -144,7 +144,7 @@ RSpec.feature "タスク検索機能", type: :feature do
     visit tasks_path
     
     click_on '次 ›'
-    save_and_open_page
+    # save_and_open_page
     expect(all('table tr').size).to eq(10)
     first_task = all('table tr td')[0]
     expect(first_task).to have_content 'test_task_19'
@@ -159,7 +159,7 @@ RSpec.feature "タスク検索機能", type: :feature do
     visit tasks_path
     
     click_on '最後 »'
-    save_and_open_page
+    # save_and_open_page
     expect(all('table tr').size).to eq(10)
     first_task = all('table tr td')[0]
     expect(first_task).to have_content 'test_task_9'
@@ -175,7 +175,7 @@ RSpec.feature "タスク検索機能", type: :feature do
     
     click_on '最後 »'
     click_on '‹ 前'
-    save_and_open_page
+    # save_and_open_page
     expect(all('table tr').size).to eq(10)
     first_task = all('table tr td')[0]
     expect(first_task).to have_content 'test_task_19'
@@ -191,7 +191,7 @@ RSpec.feature "タスク検索機能", type: :feature do
     
     click_on '最後 »'
     click_on '« 最初'
-    save_and_open_page
+    # save_and_open_page
     expect(all('table tr').size).to eq(10)
     first_task = all('table tr td')[0]
     expect(first_task).to have_content 'test_task_49'

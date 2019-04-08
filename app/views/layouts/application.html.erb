@@ -7,12 +7,24 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    
   </head>
+    <header>
+      <div class="header-left"
+        <p>アイコンとか置く予定</p>
+      </div>
+      <div class="header-right">
+      <p>ユーザー名とか入る予定</p>
+      </div>
+    </header>
 
   <body>
     <div class="container">
       <%= render partial: 'layouts/flash_messages' %>
       <%= yield %>
     </div>
+    <footer>
+      <p>© 2015-2019 Copyright .</p>
+    </footer>
   </body>
 </html>

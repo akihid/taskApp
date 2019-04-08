@@ -24,6 +24,7 @@ ja:
     to_sort_created_at : 登録順でソートする
     to_sort_priority : 優先順位でソートする
   label:
+    sort: ソート
     search_title: タイトル検索
     search_status: 状態検索
   err_msg:

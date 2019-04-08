@@ -1,0 +1,24 @@
+
+.search_container{
+  height:60px;
+  margin-top: 5px;
+  padding-top:5px;
+  font-size: 10px;
+  border: 1px solid #ccc;
+  background: #F8F8F8;
+  text-align: left;
+}
+
+.index_container{
+  height:400px;
+  width: 100%;
+  margin-top: 5px;
+  padding-top:5px;
+  font-size: 10px;
+  border: 1px solid #ccc;
+  border-style: solid;
+  background: #F8F8F8;
+  text-align: left;
+  overflow: scroll;
+}
+

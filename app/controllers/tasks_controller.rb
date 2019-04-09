@@ -6,6 +6,9 @@ class TasksController < ApplicationController
   before_action :set_task , only:[:edit ,:update ,:show ,:destroy]
 
   def index
+
+    redirect_to new_session_path unless logged_in?
+
     sort = "created_at DESC"
     if params[:sort]
       sort = "#{params[:sort]} ASC" if VALID_SORT_COLUMNS.include?(params[:sort]) 

@@ -8,11 +8,18 @@ ja:
     show_title: タスク詳細
     new_user_title: 会員登録
     show_user_title: 会員情報
+    new_login_title: ログイン
     footer_title: © 2015-2019 Copyright .
   msg:
     new_complete: 新規登録完了
     update_complete: 編集完了
     destroy_complete: 削除完了
+    user_create_complete: 会員登録しました
+    login_complete: ログインに成功しました
+    login_failed: ログインに失敗しました
+    logout_complete: ログアウトしました
+    confirm_another_user: 別ユーザーの詳細画面へは遷移できません
+    confirm_logout: ログアウトしますがよろしいですか？
     confirm_destroy: 削除しますがよろしいですか？
   btn:
     submit: 登録

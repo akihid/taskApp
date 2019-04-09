@@ -3,9 +3,9 @@
 
   <% if @user.errors.any? %>
 <div id="error_explantion">
-  <h2><%= pluralize(@users.errors.count ,  t('err_msg.err_count') )%><%= t('err_msg.has_error') %></h2>
+  <h2><%= pluralize(@user.errors.count ,  t('err_msg.err_count') )%><%= t('err_msg.has_error') %></h2>
   <ul>
-    <% @users.errors.full_messages.each do |msg| %>
+    <% @user.errors.full_messages.each do |msg| %>
       <li><%= msg %></li>
     <% end %>
   </ul>

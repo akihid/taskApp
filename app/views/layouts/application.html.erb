@@ -14,6 +14,14 @@
         <h1><%=t('view.page_title')%></h1>
       </div>
       <div class="header-right">
+        <% if logged_in? %>
+          <li><%= link_to "マイページ" , user_path(current_user.id) ,class:"btn btn-default btn-lg"%></li>
+          <li><%= link_to "ログアウト" , session_path(current_user.id) ,
+          method: :delete ,data:{confirm:t('msg.confirm_logout')},class:"btn btn-danger btn-lg"%></li>
+        <% else %>
+          <li><%= link_to 'ログイン' , new_session_path ,class:"btn btn-default btn-lg"%></li>
+          <li><%= link_to '会員登録' , new_user_path ,class:"btn btn-primary btn-lg"%></li>
+        <% end %>    
       <p></p>
       </div>
     </header>

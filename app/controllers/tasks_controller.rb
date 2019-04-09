@@ -6,18 +6,19 @@ class TasksController < ApplicationController
   before_action :set_task , only:[:edit ,:update ,:show ,:destroy]
 
   def index
+    unless logged_in?
+      redirect_to new_session_path 
+    else
+      sort = "created_at DESC"
+      if params[:sort]
+        sort = "#{params[:sort]} ASC" if VALID_SORT_COLUMNS.include?(params[:sort]) 
+      end
+      #  paramsに設定されているときのみ検索処理
+      @tasks = Task.find_self_task(current_user.id).search_task(params[:title] ,params[:status])
 
-    redirect_to new_session_path unless logged_in?
-
-    sort = "created_at DESC"
-    if params[:sort]
-      sort = "#{params[:sort]} ASC" if VALID_SORT_COLUMNS.include?(params[:sort]) 
+      @tasks = @tasks.order(sort)
+      @tasks = @tasks.page(params[:page]).per(10)
     end
-    #  paramsに設定されているときのみ検索処理
-    @tasks = Task.find_self_task(current_user.id).search_task(params[:title] ,params[:status])
-
-    @tasks = @tasks.order(sort)
-    @tasks = @tasks.page(params[:page]).per(10)
   end
 
   def show

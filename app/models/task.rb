@@ -10,11 +10,11 @@ class Task < ApplicationRecord
     return if (title.nil?  && status.nil?)
 
     if title.present? && status.present?
-      where("title like ? AND status = ?", user_id ,"%#{title}%" ,  status)
+      where("title like ? AND status = ?","%#{title}%" ,  status)
     elsif title.present?
-      where("title like ?", user_id ,"%#{title}%")
+      where("title like ?","%#{title}%")
     elsif status.present?
-      where("status = ?", user_id ,status)
+      where("status = ?",status)
     end
 
   end

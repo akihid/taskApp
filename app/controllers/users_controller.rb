@@ -3,6 +3,9 @@ class UsersController < ApplicationController
 before_action :set_user , only:[:show]
 
   def new
+
+    redirect_to tasks_path if logged_in?
+    
     @user = User.new
   end
 
@@ -19,6 +22,7 @@ before_action :set_user , only:[:show]
   end
 
   def show
+    check_another_user
   end
 
   private
@@ -32,6 +36,10 @@ before_action :set_user , only:[:show]
   end
 
   def check_another_user
-    flash[:success] = t('msg.confirm_another_user')if current_user.id !=  @user.id
+    unless current_user.id ==  @user.id
+      flash[:success] = t('msg.confirm_another_user')
+      redirect_to user_path(current_user.id )
+    end
+
   end
 end

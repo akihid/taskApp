@@ -6,10 +6,17 @@ RSpec.feature "タスク管理機能", type: :feature do
   # scenario（itのalias）の中に、確認したい各項目のテストの処理を書きます。
 
   background do
-    # あらかじめタスク一覧のテストで使用するためのタスクを二つ作成する
+    @user = FactoryBot.create(:user)
     FactoryBot.create(:task)
     FactoryBot.create(:second_task)
     FactoryBot.create(:third_task)
+
+    visit new_session_path
+
+    fill_in 'session[mail]', with: 'test1@co.jp'
+    fill_in 'session[password]', with: '111111'
+
+    click_on '登録'
   end
 
   scenario "タスク一覧のテスト" do
@@ -36,7 +43,7 @@ RSpec.feature "タスク管理機能", type: :feature do
   end
 
   scenario "タスク詳細のテスト" do
-    Task.create!(id: 999 , title: 'test_task_09', content: 'testtesttest' , deadline_at: Date.today + 5, priority: '高', status: '未着手')
+    Task.create!(id: 999 , title: 'test_task_09', content: 'testtesttest' , deadline_at: Date.today + 5, priority: '高', status: '未着手',user_id: @user.id)
 
     visit task_path(999)
 
@@ -58,13 +65,10 @@ RSpec.feature "タスク管理機能", type: :feature do
   end
 
   scenario "タスク並び順（終了期限）のテスト" do
-    # backgroundで4/1-3まで作成済
     visit tasks_path
 
     select '終了期限でソートする', from: 'sort'
     click_on '検索'
-    # save_and_open_page
-    # todo: tableタグ以外使用した場合エラーになる書き方。
     first_task = all('table tr td')[0]
     expect(first_task).to have_content 'test_task_01'
   end
@@ -87,6 +91,13 @@ RSpec.feature "タスク検索機能", type: :feature do
     FactoryBot.create(:task)
     FactoryBot.create(:second_task)
     FactoryBot.create(:third_task)
+
+    visit new_session_path
+
+    fill_in 'session[mail]', with: 'test1@co.jp'
+    fill_in 'session[password]', with: '111111'
+
+    click_on '登録'
   end
 
   scenario "タスク検索（タスク名）のテスト" do
@@ -95,7 +106,7 @@ RSpec.feature "タスク検索機能", type: :feature do
     fill_in 'title', with: 'test_task_01'
 
     click_on '検索'
-
+    
     expect(all('table tr').size).to eq(1)
     expect(page).to have_content 'test_task_01'
     expect(page).to_not have_content 'test_task_02'
@@ -105,13 +116,12 @@ RSpec.feature "タスク検索機能", type: :feature do
   scenario "タスク検索（状態）のテスト" do
     visit tasks_path
 
-    select '未着手', from: 'status'
-
+    select '完了', from: 'status'
+    
     click_on '検索'
-
     expect(all('table tr').size).to eq(2)
-    expect(page).to have_content 'test_task_01'
-    expect(page).to_not have_content 'test_task_02'
+    expect(page).to_not have_content 'test_task_01'
+    expect(page).to have_content 'test_task_02'
     expect(page).to have_content 'test_task_03'
     
   end
@@ -120,7 +130,7 @@ RSpec.feature "タスク検索機能", type: :feature do
     visit tasks_path
 
     fill_in 'title', with: 'test_task_03'
-    select '未着手', from: 'status'
+    select '完了', from: 'status'
 
     click_on '検索'
     
@@ -133,16 +143,26 @@ RSpec.feature "タスク検索機能", type: :feature do
 end
 
 
-RSpec.feature "タスク検索機能", type: :feature do
+RSpec.feature "タスク検索機能(ページャー）", type: :feature do
 
+  background do
+
+    @user = FactoryBot.create(:user)
+    visit new_session_path
+
+    fill_in 'session[mail]', with: 'test1@co.jp'
+    fill_in 'session[password]', with: '111111'
+
+    click_on '登録'
+  end
   scenario "ページャーテスト（次へ）" do
 
     30.times do |i|
-      Task.create!(id: i , title: "test_task_#{i}", content: 'testtesttest' , deadline_at: Date.today , priority: '高', status: '未着手')
+      Task.create!(id: i , title: "test_task_#{i}", content: 'testtesttest' , deadline_at: Date.today , priority: '高', status: '未着手',user_id: @user.id)
     end
 
     visit tasks_path
-    
+
     click_on '次 ›'
     # save_and_open_page
     expect(all('table tr').size).to eq(10)
@@ -153,7 +173,7 @@ RSpec.feature "タスク検索機能", type: :feature do
   scenario "ページャーテスト（最後へ）" do
 
     30.times do |i|
-      Task.create!(id: i , title: "test_task_#{i}", content: 'testtesttest' , deadline_at: Date.today , priority: '高', status: '未着手')
+      Task.create!(id: i , title: "test_task_#{i}", content: 'testtesttest' , deadline_at: Date.today , priority: '高', status: '未着手',user_id: @user.id)
     end
 
     visit tasks_path
@@ -166,9 +186,8 @@ RSpec.feature "タスク検索機能", type: :feature do
   end
 
   scenario "ページャーテスト（前へ）" do
-
     50.times do |i|
-      Task.create!(id: i , title: "test_task_#{i}", content: 'testtesttest' , deadline_at: Date.today , priority: '高', status: '未着手')
+      Task.create!(id: i , title: "test_task_#{i}", content: 'testtesttest' , deadline_at: Date.today , priority: '高', status: '未着手',user_id: @user.id)
     end
 
     visit tasks_path
@@ -184,7 +203,7 @@ RSpec.feature "タスク検索機能", type: :feature do
   scenario "ページャーテスト（最初へ）" do
 
     50.times do |i|
-      Task.create!(id: i , title: "test_task_#{i}", content: 'testtesttest' , deadline_at: Date.today , priority: '高', status: '未着手')
+      Task.create!(id: i , title: "test_task_#{i}", content: 'testtesttest' , deadline_at: Date.today , priority: '高', status: '未着手',user_id: @user.id)
     end
 
     visit tasks_path
@@ -197,45 +216,48 @@ RSpec.feature "タスク検索機能", type: :feature do
     expect(first_task).to have_content 'test_task_49'
   end
 
-
 end
 
 RSpec.describe "タスクバリデーションチェック", type: :model do
+
+  before do
+    @user = FactoryBot.create(:user)
+  end
+  
   it "titleが空ならバリデーションが通らない" do
-    task = Task.new(title: '', content: '失敗テスト')
+    task = Task.new(title: '', content: '失敗テスト',user_id: @user.id)
     expect(task).not_to be_valid
   end
 
   it "contentが空ならバリデーションが通らない" do
-    task = Task.new(title: '失敗テスト', content: '')
+    task = Task.new(title: '失敗テスト', content: '',user_id: @user.id)
     expect(task).not_to be_valid
   end
 
   it "titleが20文字以上ならバリデーションが通らない" do
-    task = Task.new(title: 'あ' * 21, content: '失敗テスト')
+    task = Task.new(title: 'あ' * 21, content: '失敗テスト',user_id: @user.id)
     expect(task).not_to be_valid
   end
 
   it "contentが200文字以上ならバリデーションが通らない" do
-    task = Task.new(title: '失敗テスト', content: 'あ' * 201)
+    task = Task.new(title: '失敗テスト', content: 'あ' * 201,user_id: @user.id)
     expect(task).not_to be_valid
   end
 
   it "日付が過去ならバリデーションが通らない" do
-    task = Task.new(title: '失敗テスト', content: '失敗テスト' , deadline_at: Date.today - 1 )
+    task = Task.new(title: '失敗テスト', content: '失敗テスト' , deadline_at: Date.today - 1 ,user_id: @user.id)
     expect(task).not_to be_valid
   end
 
   it "編集時に日付が過去でもバリデーションが通る" do
-
-    task = Task.create(id: 999 , title: 'test_task_09', content: 'testtesttest' , deadline_at: Date.today + 5, priority: '高', status: '未着手')
+    task = FactoryBot.create(:task)
     task.update(deadline_at: Date.today - 1)
     expect(task).to be_valid
 
   end
 
   it "title20字以下、content200字以下で値が設定されていればバリデーションが通る" do
-    task = Task.new(title: 'あ' * 20, content: 'あ' * 200)
+    task = Task.new(title: 'a' * 20, content: 'a' * 200, deadline_at: Date.today,user_id: @user.id)
     expect(task).to be_valid
   end
 end

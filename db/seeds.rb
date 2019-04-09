@@ -10,8 +10,11 @@
 1.times do |n|
   name = "user#{n}"
   mail = "user#{n}@co.jp"
+  password = "111111"
   
   User.create!(name: name,
                mail: mail,
+               password: password,
+               password_confirmation: password,
                )
 end

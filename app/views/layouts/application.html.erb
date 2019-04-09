@@ -15,11 +15,11 @@
       </div>
       <div class="header-right">
         <% if logged_in? %>
-          <li><%= link_to t('btn.mypage') , user_path(current_user.id) ,class:"btn btn-default btn-lg"%></li>
+          <li><%= link_to t('btn.mypage') , user_path(current_user.id) ,class:"btn btn-dark btn-lg"%></li>
           <li><%= link_to t('btn.logout') , session_path(current_user.id) ,
           method: :delete ,data:{confirm:t('msg.confirm_logout')},class:"btn btn-danger btn-lg"%></li>
         <% else %>
-          <li><%= link_to t('btn.login') , new_session_path ,class:"btn btn-default btn-lg"%></li>
+          <li><%= link_to t('btn.login') , new_session_path ,class:"btn btn-dark btn-lg"%></li>
           <li><%= link_to t('btn.signin') , new_user_path ,class:"btn btn-primary btn-lg"%></li>
         <% end %>    
       <p></p>

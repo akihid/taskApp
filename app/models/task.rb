@@ -7,17 +7,20 @@ class Task < ApplicationRecord
   validates :priority, inclusion:{ in: Task.priorities.keys}
   belongs_to :user
   scope :search_task, ->(title , status) do
-
-    return if (title.nil?  && status.nill?)
+    return if (title.nil?  && status.nil?)
 
     if title.present? && status.present?
-      where("title like ? AND status = ?", "%#{title}%" ,  status)
+      where("title like ? AND status = ?", user_id ,"%#{title}%" ,  status)
     elsif title.present?
-      where("title like ?", "%#{title}%")
+      where("title like ?", user_id ,"%#{title}%")
     elsif status.present?
-      where("status = ?", status)
+      where("status = ?", user_id ,status)
     end
 
+  end
+
+  scope :find_self_task, ->(user_id) do
+    where("user_id = ?", user_id)
   end
 
 

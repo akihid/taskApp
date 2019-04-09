@@ -13,13 +13,9 @@ class TasksController < ApplicationController
     if params[:sort]
       sort = "#{params[:sort]} ASC" if VALID_SORT_COLUMNS.include?(params[:sort]) 
     end
-    
     #  paramsに設定されているときのみ検索処理
-    unless params[:title].nil?
-      @tasks = Task.search_task(params[:title],params[:status])
-    else
-      @tasks = Task.all
-    end
+    @tasks = Task.find_self_task(current_user.id).search_task(params[:title] ,params[:status])
+
     @tasks = @tasks.order(sort)
     @tasks = @tasks.page(params[:page]).per(10)
   end
@@ -36,7 +32,7 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(task_params)
+    @task = current_user.tasks.build(task_params)
     if @task.save
       flash[:success] = t('msg.new_complete')
       redirect_to tasks_path

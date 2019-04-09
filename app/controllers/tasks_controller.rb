@@ -57,7 +57,7 @@ class TasksController < ApplicationController
 
   def destroy
     @task.destroy
-    flash[:notice] = t('msg.destroy_complete')
+    flash[:danger] = t('msg.destroy_complete')
     redirect_to tasks_path
   end
 

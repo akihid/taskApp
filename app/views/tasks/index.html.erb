@@ -39,10 +39,10 @@
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               ■
             </a>
-            <div class="dropdown-menu mr-auto" aria-labelledby="navbarDropdownMenuLink">
-              <%= link_to t('btn.show'), task_path(task.id),class:"btn-sm btn-secondary margin_left5"%><br>
-              <%= link_to t('btn.update') , edit_task_path(task.id) ,class:"btn-sm btn-primary margin_left5"%><br>
-              <%= link_to t('btn.destroy'), task_path(task.id), method: :delete, data:{ confirm: t('msg.confirm_destroy')} ,class:"btn-sm btn-danger margin_left5"%><br>
+            <div class="dropdown-menu mr-auto width_200" aria-labelledby="navbarDropdownMenuLink">
+              <%= link_to t('btn.show'), task_path(task.id),class:"btn-sm btn-secondary margin_left5"%>
+              <%= link_to t('btn.update') , edit_task_path(task.id) ,class:"btn-sm btn-primary margin_left5"%>
+              <%= link_to t('btn.destroy'), task_path(task.id), method: :delete, data:{ confirm: t('msg.confirm_destroy')} ,class:"btn-sm btn-danger margin_left5"%>
             </div>
           </li>
         </td>

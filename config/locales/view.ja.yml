@@ -6,6 +6,7 @@ ja:
     new_title: タスク作成
     edit_title: タスク編集
     show_title: タスク詳細
+    new_user_title: 会員登録
     footer_title: © 2015-2019 Copyright .
   msg:
     new_complete: 新規登録完了

@@ -1,0 +1,28 @@
+<div class="width_50">
+  <h1><%= t('view.show_title') %></h1>
+
+  <div class="d-flex align-items-center mt-4 mb-4">
+      <div class="ml-auto posts_button">
+      </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header .bg-dark">
+      <h4><%= @task.title %></h4>
+      <div class="align_right">
+        <%= Task.human_attribute_name('deadline_at')%>:<%= @task.deadline_at%><br>
+        <%= Task.human_attribute_name('priority')%>:<%= @task.priority%><br>
+        <%= Task.human_attribute_name('status')%>:<%= @task.status%><br>
+      </div>
+    </div>
+    <div class="card-body height_200">
+      <p class="card-text"><%= simple_format(@task.content) %></p>
+    </div>
+    <div class="card-footer align_center">
+      <%= link_to t('btn.update') , edit_task_path(@task.id) ,class:"btn-sm btn-primary"%>
+      <%= link_to t('btn.destroy'), task_path(@task.id), method: :delete, data:{ confirm: t('msg.confirm_destroy') } ,class:"btn-sm btn-danger"%>
+      <%= link_to t('btn.to_index') , tasks_path ,class:"btn-sm btn-dark"%>
+    </div>
+  </div>
+
+</div>

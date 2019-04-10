@@ -3,7 +3,7 @@
   <h2><%= pluralize(@task.errors.count ,  t('err_msg.err_count') )%><%= t('err_msg.has_error') %></h2>
   <ul>
     <% @task.errors.full_messages.each do |msg| %>
-      <li><%= msg %></li>
+      <li><%= msg %></li><br>
     <% end %>
   </ul>
   </div>

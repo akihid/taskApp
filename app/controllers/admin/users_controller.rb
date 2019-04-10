@@ -1,9 +1,46 @@
 class Admin::UsersController < ApplicationController
 
-before_action :set_user , only:[:show]
+  before_action :set_user , only:[:edit , :update ,:show]
 
   def index
     @users = User.all
+  end
+
+  def new
+    if params[:back]
+      @user = User.new(user_params)
+    else
+      @user = User.new
+    end
+  end
+
+  def create
+    @user =  User.new(user_params)
+    if @user.save
+      flash[:success] = t('msg.new_complete')
+      redirect_to admin_users_path
+    else
+      render 'new'
+    end
+  end
+
+  def edit
+  end
+
+  def update
+    
+    if @user.update(user_params)
+      flash[:success] = t('msg.update_complete')
+      redirect_to admin_users_path
+    else
+      render 'edit'
+    end
+  end
+
+  def destroy
+    @user.destroy
+    flash[:danger] = t('msg.destroy_complete')
+    redirect_to admin_users_path
   end
 
   private
@@ -14,13 +51,5 @@ before_action :set_user , only:[:show]
 
   def user_params
     params.require(:user).permit(:name , :mail , :password , :password_confirmation)
-  end
-
-  def check_another_user
-    unless current_user.id ==  @user.id
-      flash[:success] = t('msg.confirm_another_user')
-      redirect_to user_path(current_user.id )
-    end
-
   end
 end

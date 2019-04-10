@@ -10,5 +10,11 @@ ja:
         priority: '優先度'
         status: '状態'
         err_msg_deadline_at: ": 過去の日付は使えません"
+      user:
+        name: "名前"
+        mail: "メールアドレス"
+        password: 'パスワード'
+        password_confirmation: 'パスワード（確認用）'
+      
 
 

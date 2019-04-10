@@ -5,19 +5,22 @@ class Task < ApplicationRecord
   validates :status, inclusion:{ in: Task.statuses.keys}
   enum priority: { 高:0, 中:1, 低:2}
   validates :priority, inclusion:{ in: Task.priorities.keys}
-
+  belongs_to :user
   scope :search_task, ->(title , status) do
-
-    return if (title.nil?  && status.nill?)
+    return if (title.nil?  && status.nil?)
 
     if title.present? && status.present?
-      where("title like ? AND status = ?", "%#{title}%" ,  status)
+      where("title like ? AND status = ?","%#{title}%" ,  status)
     elsif title.present?
-      where("title like ?", "%#{title}%")
+      where("title like ?","%#{title}%")
     elsif status.present?
-      where("status = ?", status)
+      where("status = ?",status)
     end
 
+  end
+
+  scope :find_self_task, ->(user_id) do
+    where("user_id = ?", user_id)
   end
 
 

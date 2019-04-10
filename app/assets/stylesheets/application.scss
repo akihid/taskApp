@@ -67,7 +67,8 @@ th,td{
   padding:5px,0;
   border-left: 1px dotted #ccc;
   border-bottom: 1px dotted #ccc;
-  text-align: center
+  text-align: center;
+  height: 20px;
 }
 
 .logo_image img{
@@ -115,7 +116,11 @@ footer p{
 
 .width_80{
   width:80%;
-  margin: auto
+  margin: auto;
+}
+
+.width_200{
+  width:200px;
 }
 
 .height_200{

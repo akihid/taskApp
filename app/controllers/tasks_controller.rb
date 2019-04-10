@@ -6,19 +6,19 @@ class TasksController < ApplicationController
   before_action :set_task , only:[:edit ,:update ,:show ,:destroy]
 
   def index
-    sort = "created_at DESC"
-    if params[:sort]
-      sort = "#{params[:sort]} ASC" if VALID_SORT_COLUMNS.include?(params[:sort]) 
-    end
-    
-    #  paramsに設定されているときのみ検索処理
-    unless params[:title].nil?
-      @tasks = Task.search_task(params[:title],params[:status])
+    unless logged_in?
+      redirect_to new_session_path 
     else
-      @tasks = Task.all
+      sort = "created_at DESC"
+      if params[:sort]
+        sort = "#{params[:sort]} ASC" if VALID_SORT_COLUMNS.include?(params[:sort]) 
+      end
+      #  paramsに設定されているときのみ検索処理
+      @tasks = Task.find_self_task(current_user.id).search_task(params[:title] ,params[:status])
+
+      @tasks = @tasks.order(sort)
+      @tasks = @tasks.page(params[:page]).per(10)
     end
-    @tasks = @tasks.order(sort)
-    @tasks = @tasks.page(params[:page]).per(10)
   end
 
   def show
@@ -33,7 +33,7 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(task_params)
+    @task = current_user.tasks.build(task_params)
     if @task.save
       flash[:success] = t('msg.new_complete')
       redirect_to tasks_path
@@ -57,7 +57,7 @@ class TasksController < ApplicationController
 
   def destroy
     @task.destroy
-    flash[:notice] = t('msg.destroy_complete')
+    flash[:danger] = t('msg.destroy_complete')
     redirect_to tasks_path
   end
 

@@ -18,6 +18,8 @@ ja:
     update_complete: 編集完了
     destroy_complete: 削除完了
     user_create_complete: 会員登録しました
+    user_update_complete: 会員更新しました
+    user_destroy_complete: 会員削除しました
     login_complete: ログインに成功しました
     login_failed: ログインに失敗しました
     logout_complete: ログアウトしました

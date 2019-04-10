@@ -1,6 +1,6 @@
 class Admin::UsersController < ApplicationController
 
-  before_action :set_user , only:[:edit , :update ,:show]
+  before_action :set_user , only:[:edit , :update ,:show ,:destroy]
 
   def index
     @users = User.all
@@ -17,7 +17,7 @@ class Admin::UsersController < ApplicationController
   def create
     @user =  User.new(user_params)
     if @user.save
-      flash[:success] = t('msg.new_complete')
+      flash[:success] = t('msg.user_create_complete')
       redirect_to admin_users_path
     else
       render 'new'
@@ -30,7 +30,7 @@ class Admin::UsersController < ApplicationController
   def update
     
     if @user.update(user_params)
-      flash[:success] = t('msg.update_complete')
+      flash[:success] = t('msg.user_update_complete')
       redirect_to admin_users_path
     else
       render 'edit'
@@ -39,7 +39,7 @@ class Admin::UsersController < ApplicationController
 
   def destroy
     @user.destroy
-    flash[:danger] = t('msg.destroy_complete')
+    flash[:danger] = t('msg.user_destroy_complete')
     redirect_to admin_users_path
   end
 

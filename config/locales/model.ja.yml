@@ -9,6 +9,7 @@ ja:
         deadline_at: '終了期限'
         priority: '優先度'
         status: '状態'
+        count: タスク数
         err_msg_deadline_at: ": 過去の日付は使えません"
       user:
         name: "名前"

@@ -8,6 +8,7 @@ ja:
     show_title: タスク詳細
     new_user_title: 会員登録
     show_user_title: 会員情報
+    admin_title: 管理画面
     new_login_title: ログイン
     logout_title: ログアウト
     footer_title: © 2015-2019 Copyright .

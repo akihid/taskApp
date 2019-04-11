@@ -6,4 +6,5 @@ class User < ApplicationRecord
   validates :password , presence: true , length: {minimum:6}
   has_many :tasks , dependent: :destroy
   enum role: { 管理者:true, 一般:false}
+
 end

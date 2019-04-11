@@ -1,6 +1,7 @@
 class Admin::UsersController < ApplicationController
 
   before_action :set_user , only:[:edit , :update ,:show ,:destroy]
+  before_action :admin_user?
 
   def index
     @users = User.all
@@ -52,4 +53,12 @@ class Admin::UsersController < ApplicationController
   def user_params
     params.require(:user).permit(:name , :mail , :password , :password_confirmation)
   end
+
+  def admin_user?
+    unless current_user.role
+    raise Forbidden
+      # flash[:danger] = t('err_msg.err_403')
+      # redirect_to user_path(current_user.id)
+    end
+   end
 end

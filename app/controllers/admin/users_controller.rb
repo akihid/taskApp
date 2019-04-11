@@ -29,10 +29,13 @@ class Admin::UsersController < ApplicationController
   end
 
   def update
-    
-    if @user.update(user_params)
-      flash[:success] = t('msg.user_update_complete')
-      redirect_to admin_users_path
+    if  delete_admin_user?
+      if @user.update(user_params)
+        flash[:success] = t('msg.user_update_complete')
+        redirect_to admin_users_path
+      else
+        render 'edit'
+      end
     else
       render 'edit'
     end
@@ -51,14 +54,22 @@ class Admin::UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:name , :mail , :password , :password_confirmation)
+    params.require(:user).permit(:name , :mail , :password , :password_confirmation ,:role)
   end
 
   def admin_user?
     unless current_user.role
-    raise Forbidden
-      # flash[:danger] = t('err_msg.err_403')
-      # redirect_to user_path(current_user.id)
+      raise Forbidden
     end
-   end
+  end
+
+  def delete_admin_user?
+    admin_user_count = User.where(role: true).count
+    if user_params[:role] == User.human_attribute_name('role_common') && admin_user_count == 1
+      flash.now[:danger] = t('err_msg.confirm_admin')
+      false
+    else
+      true
+    end
+  end
 end

@@ -16,6 +16,9 @@ ja:
         mail: "メールアドレス"
         password: 'パスワード'
         password_confirmation: 'パスワード（確認用）'
+        role: 'ユーザー区分'
+        role_admin: '管理者'
+        role_common: '一般'
       
 
 

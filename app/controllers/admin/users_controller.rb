@@ -5,7 +5,7 @@ class Admin::UsersController < ApplicationController
   before_action :delete_admin_user? , only:[:update ,:destroy]
 
   def index
-    @users = User.all
+    @users = User.all.includes(:tasks)
   end
 
   def new

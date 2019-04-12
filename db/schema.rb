@@ -22,8 +22,8 @@ ActiveRecord::Schema.define(version: 2019_04_12_060557) do
   end
 
   create_table "task_labels", force: :cascade do |t|
-    t.integer "user_id"
     t.integer "task_id"
+    t.integer "label_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

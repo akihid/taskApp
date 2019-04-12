@@ -12,14 +12,23 @@ class Task < ApplicationRecord
 
 
   scope :search_task, ->(title , status) do
-    return if (title.nil?  && status.nil?)
+    return if (title.nil? && status.nil?)
 
-    if title.present? && status.present?
+    if title.present? && status.present? 
       where("title like ? AND status = ?","%#{title}%" ,  status)
     elsif title.present?
       where("title like ?","%#{title}%")
     elsif status.present?
       where("status = ?",status)
+    end
+
+  end
+
+  scope :search_label, ->(label) do
+    return if (label.nil?)
+
+    if label.present? 
+      where("label_id = ?",label)
     end
 
   end

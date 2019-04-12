@@ -10,6 +10,7 @@ Users
 |name	| string | User名
 |mail	| striing | メールアドレス
 |password_digest	| string | パスワード
+|role	| boolean | 役割（管理者:true , 一般:false)
 
 ---
 
@@ -22,8 +23,8 @@ Tasks
 |title	| striing | タスク名
 |content	| text | タスクの内容
 |deadline_at	| date | 期限
-|priority	| string | 優先度
-|status	| string | ステータス
+|priority	| integer | 優先度
+|status	| integer | ステータス
 
 ---
 

@@ -50,6 +50,7 @@ ja:
   err_msg:
     err_count: 件
     has_error: のエラーがあります
+    confirm_admin: 管理者がいなくなるため、この処理は実行できません
   views:
     pagination:
       first: "&laquo; 最初"

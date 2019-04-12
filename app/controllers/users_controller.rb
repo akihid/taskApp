@@ -1,7 +1,6 @@
 class UsersController < ApplicationController
 
 before_action :set_user , only:[:show]
-
   def new
 
     redirect_to tasks_path if logged_in?
@@ -42,4 +41,5 @@ before_action :set_user , only:[:show]
     end
 
   end
+
 end

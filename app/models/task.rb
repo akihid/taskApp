@@ -21,16 +21,6 @@ class Task < ApplicationRecord
     elsif status.present?
       where("status = ?",status)
     end
-
-  end
-
-  scope :search_label, ->(label) do
-    return if (label.nil?)
-
-    if label.present? 
-      where("label_id = ?",label)
-    end
-
   end
 
   scope :find_self_task, ->(user_id) do

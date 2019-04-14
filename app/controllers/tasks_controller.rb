@@ -10,15 +10,7 @@ class TasksController < ApplicationController
     unless logged_in?
       redirect_to new_session_path 
     else
-      sort = "created_at DESC"
-      if params[:sort]
-        sort = "#{params[:sort]} ASC" if VALID_SORT_COLUMNS.include?(params[:sort]) 
-      end
-      
-      @tasks = Task.find_self_task(current_user.id).search_task(params[:title] ,params[:status])
-
-      @tasks = @tasks.order(sort)
-      @tasks = @tasks.page(params[:page]).per(10)
+      define_tasks
     end
   end
 
@@ -80,5 +72,27 @@ class TasksController < ApplicationController
 
   def set_label_checked_already
     @label_checked_already = @task.task_labels.map{ |label| label.label_id}
+  end
+
+  def define_tasks
+    sort = define_sort
+
+    if params[:label].present?
+      label = Label.find(params[:label])
+      @tasks = label.label_used_task
+    else
+      @tasks = Task.all
+    end
+
+    @tasks = @tasks.find_self_task(current_user.id).search_task(params[:title] ,params[:status])
+    @tasks = @tasks.order(sort)
+    @tasks = @tasks.page(params[:page]).per(10)
+  end
+
+  def define_sort
+    sort = "created_at DESC"
+    if params[:sort]
+      sort = "#{params[:sort]} ASC" if VALID_SORT_COLUMNS.include?(params[:sort]) 
+    end
   end
 end

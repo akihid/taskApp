@@ -13,10 +13,12 @@
         <%= Task.human_attribute_name('deadline_at')%>:<%= @task.deadline_at%><br>
         <%= Task.human_attribute_name('priority')%>:<%= @task.priority%><br>
         <%= Task.human_attribute_name('status')%>:<%= @task.status%><br>
+        
       </div>
     </div>
     <div class="card-body height_200">
       <p class="card-text"><%= simple_format(@task.content) %></p>
+      <%= Label.human_attribute_name('word')%>:<%= @task.task_have_labels.map {|label| label.word}.join(", ") %><br>
     </div>
     <div class="card-footer align_center">
       <%= link_to t('btn.update') , edit_task_path(@task.id) ,class:"btn-sm btn-primary"%>

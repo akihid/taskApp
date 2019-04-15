@@ -3,21 +3,14 @@ class TasksController < ApplicationController
   # 並び替えに使用していいカラムの配列（paramで受け取るもの)
   VALID_SORT_COLUMNS = %w(deadline_at , priority)
 
-  before_action :set_task , only:[:edit ,:update ,:show ,:destroy]
+  before_action :set_task , only:[:edit ,:update , :destroy ,:show]
+  before_action :set_label_checked_already , only:[:edit ,:update]
 
   def index
     unless logged_in?
       redirect_to new_session_path 
     else
-      sort = "created_at DESC"
-      if params[:sort]
-        sort = "#{params[:sort]} ASC" if VALID_SORT_COLUMNS.include?(params[:sort]) 
-      end
-      #  paramsに設定されているときのみ検索処理
-      @tasks = Task.find_self_task(current_user.id).search_task(params[:title] ,params[:status])
-
-      @tasks = @tasks.order(sort)
-      @tasks = @tasks.page(params[:page]).per(10)
+      define_tasks
     end
   end
 
@@ -35,6 +28,11 @@ class TasksController < ApplicationController
   def create
     @task = current_user.tasks.build(task_params)
     if @task.save
+      if params[:task][:label_id].present?
+        params[:task][:label_id].each do |label|
+          @task.task_labels.create(task_id:@task.id , label_id:label.to_i)
+        end
+      end
       flash[:success] = t('msg.new_complete')
       redirect_to tasks_path
     else
@@ -46,8 +44,11 @@ class TasksController < ApplicationController
   end
 
   def update
-    
     if @task.update(task_params)
+      @task.task_labels.destroy_all
+      params[:task][:label_id].each do |label|
+        @task.task_labels.create(task_id:@task.id , label_id:label.to_i)
+      end
       flash[:success] = t('msg.update_complete')
       redirect_to tasks_path
     else
@@ -69,5 +70,32 @@ class TasksController < ApplicationController
 
   def set_task
     @task = Task.find(params[:id])
+  end
+
+  def set_label_checked_already
+    @label_checked_already = @task.task_labels.map{ |label| label.label_id}
+  end
+
+  def define_tasks
+    sort = define_sort
+
+    if params[:label].present?
+      label = Label.find(params[:label])
+      @tasks = label.label_used_task
+    else
+      @tasks = Task.all
+    end
+
+    @tasks = @tasks.find_self_task(current_user.id).search_task(params[:title] ,params[:status])
+    @tasks = @tasks.order(sort)
+    @tasks = @tasks.page(params[:page]).per(10)
+  end
+
+  def define_sort
+    sort = "created_at DESC"
+    if params[:sort]
+      sort = "#{params[:sort]} ASC" if VALID_SORT_COLUMNS.include?(params[:sort]) 
+    end
+    sort
   end
 end

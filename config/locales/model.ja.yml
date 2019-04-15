@@ -19,6 +19,6 @@ ja:
         role: 'ユーザー区分'
         role_admin: '管理者'
         role_common: '一般'
-      
-
+      label:
+        word: タグ
 

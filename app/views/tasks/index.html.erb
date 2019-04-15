@@ -9,6 +9,7 @@
                           [t('btn.to_sort_priority'), "priority"]],include_blank:true , selected: params[:sort] %><br>
       <%= f.label Task.human_attribute_name('title') %>:<%= f.text_field :title , value: params[:title] %>
       <%= f.label Task.human_attribute_name('status') %>:<%= f.select :status ,Task.statuses, include_blank: true , selected: params[:status] %>
+      <%= f.label Label.human_attribute_name('word') %>:<%= f.select :label ,Label.all.map{|t| [t.word, t.id]} ,  include_blank: true , selected: params[:label] %>
       <%= f.submit t('btn.search') ,class:"btn-sm"%>
       <%= link_to t('btn.clear'), tasks_path ,class:"btn-sm btn-dark"%>
     <% end %>

@@ -28,8 +28,10 @@ class TasksController < ApplicationController
   def create
     @task = current_user.tasks.build(task_params)
     if @task.save
-      params[:task][:label_id].each do |label|
-        @task.task_labels.create(task_id:@task.id , label_id:label.to_i)
+      if params[:task][:label_id].present?
+        params[:task][:label_id].each do |label|
+          @task.task_labels.create(task_id:@task.id , label_id:label.to_i)
+        end
       end
       flash[:success] = t('msg.new_complete')
       redirect_to tasks_path
@@ -94,5 +96,6 @@ class TasksController < ApplicationController
     if params[:sort]
       sort = "#{params[:sort]} ASC" if VALID_SORT_COLUMNS.include?(params[:sort]) 
     end
+    sort
   end
 end

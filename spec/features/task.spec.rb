@@ -10,6 +10,9 @@ RSpec.feature "タスク管理機能", type: :feature do
     FactoryBot.create(:task)
     FactoryBot.create(:second_task)
     FactoryBot.create(:third_task)
+    3.times do |i|
+      Label.create!(id: i , word: "test#{i}")
+    end
 
     visit new_session_path
 
@@ -34,9 +37,7 @@ RSpec.feature "タスク管理機能", type: :feature do
 
     fill_in 'task[title]', with: 'タイトル名のテスト'
     fill_in 'task[content]', with: '内容のテスト'
-
     click_on '登録'
-
     expect(page).to have_content 'タイトル名のテスト'
     expect(page).to have_content '内容のテスト'
     expect(page).to have_content '新規登録完了'
@@ -57,7 +58,6 @@ RSpec.feature "タスク管理機能", type: :feature do
 
   scenario "タスク並び順のテスト" do
     visit tasks_path
-
     # save_and_open_page
     # todo: tableタグ以外使用した場合エラーになる書き方。
     first_task = all('table tr td')[0]
@@ -91,6 +91,9 @@ RSpec.feature "タスク検索機能", type: :feature do
     FactoryBot.create(:task)
     FactoryBot.create(:second_task)
     FactoryBot.create(:third_task)
+    3.times do |i|
+      Label.create!(id: i , word: "test#{i}")
+    end
 
     visit new_session_path
 
@@ -148,6 +151,9 @@ RSpec.feature "タスク検索機能(ページャー）", type: :feature do
   background do
 
     @user = FactoryBot.create(:user)
+    3.times do |i|
+      Label.create!(id: i , word: "test#{i}")
+    end
     visit new_session_path
 
     fill_in 'session[mail]', with: 'test1@co.jp'

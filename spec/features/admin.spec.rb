@@ -3,11 +3,16 @@ require 'rails_helper'
 RSpec.feature "会員登録機能", type: :feature do
   background do
     @user = FactoryBot.create(:user)
+    @second_user = FactoryBot.create(:second_user)
+    visit new_session_path
+    fill_in 'session[mail]', with: 'test2@co.jp'
+    fill_in 'session[password]', with: '111111'
+    click_on '登録'
   end
   scenario "会員登録成功" do
 
     visit new_admin_user_path
-
+save_and_open_page
     fill_in 'user[name]', with: 'テスト'
     fill_in 'user[mail]', with: 'test@co.jp'
     fill_in 'user[password]', with: '123456'
@@ -68,7 +73,7 @@ RSpec.feature "会員登録機能", type: :feature do
   scenario "会員削除" do
 
     visit admin_users_path
-    click_on '削除'
+    click_on '削除', match: :first
 
     expect(page).to have_content '会員削除しました'
   end
@@ -85,7 +90,7 @@ RSpec.feature "会員登録機能", type: :feature do
   scenario "会員編集画面遷移" do
 
     visit admin_users_path
-    click_on '編集'
+    click_on '編集', match: :first
 
     expect(page).to have_content '会員情報更新'
 
@@ -94,7 +99,7 @@ RSpec.feature "会員登録機能", type: :feature do
   scenario "会員情報詳細画面遷移" do
 
     visit admin_users_path
-    click_on '詳細'
+    click_on '詳細', match: :first
 
     expect(page).to have_content '会員情報'
 

@@ -27,6 +27,10 @@ class Task < ApplicationRecord
     where("user_id = ?", user_id)
   end
 
+  scope :search_task_by_limit, ->() do
+    where("deadline_at <= ? AND status != ?", Time.zone.today - 1 , 2)
+  end
+
   def deadline_at_cannot_be_in_the_past
     if deadline_at.present? && deadline_at < Date.today
       errors.add(:deadline_at, Task.human_attribute_name('err_msg_deadline_at'))

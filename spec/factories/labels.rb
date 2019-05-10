@@ -8,4 +8,8 @@ FactoryBot.define do
   factory :third_label , class: Label do
     word { "test3" }
   end
+
+  factory :many_label, class: Label do
+    sequence(:word) { |n| "test#{n}" }
+  end
 end

@@ -26,6 +26,7 @@ ja:
     confirm_another_user: 別ユーザーの詳細画面へは遷移できません
     confirm_logout: ログアウトしますがよろしいですか？
     confirm_destroy: 削除しますがよろしいですか？
+    alert_deadline:  終了間近または期限の過ぎたタスクが存在します
   btn:
     submit: 登録
     search: 検索

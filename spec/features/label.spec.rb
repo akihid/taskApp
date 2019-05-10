@@ -2,14 +2,20 @@ require 'rails_helper'
 
 RSpec.feature "タグ機能", type: :feature do
 
-  background do
+  before :all do
+    puts 'before all'
     @user = FactoryBot.create(:user)
     3.times do |i|
-      Label.create!(id: i , word: "test#{i}")
+      FactoryBot.create(:many_label)
     end
-    # FactoryBot.create(:label)
-    # FactoryBot.create(:second_label)
-    # FactoryBot.create(:third_label)
+  end
+
+  before :each do
+    puts 'before each'
+  end
+
+  background do
+    
     visit new_session_path
 
     fill_in 'session[mail]', with: 'test1@co.jp'
@@ -27,6 +33,7 @@ RSpec.feature "タグ機能", type: :feature do
     
     click_on '登録'
     expect(TaskLabel.all.count).to eq(2)
+    p Label.all
   end
 
   scenario "タグ詳細のテスト" do
@@ -47,12 +54,13 @@ RSpec.feature "タグ機能", type: :feature do
 end
  
 RSpec.feature "タグ検索機能", type: :feature do
-
-  background do
+  before :all do
     @user = FactoryBot.create(:user)
     3.times do |i|
-      Label.create!(id: i , word: "test#{i}")
+      FactoryBot.create(:many_label)
     end
+  end
+  background do
     visit new_session_path
 
     fill_in 'session[mail]', with: 'test1@co.jp'
@@ -83,7 +91,7 @@ RSpec.feature "タグ検索機能", type: :feature do
   scenario "タグ検索のテスト（データなし）" do
     visit tasks_path
 
-    select 'test0', from: 'label'
+    select 'test3', from: 'label'
     
     click_on '検索'
     expect(all('table tr').size).to eq(0)

@@ -13,7 +13,7 @@ class Task < ApplicationRecord
 
   scope :search_task, ->(title , status) do
     return if (title.nil? && status.nil?)
-
+    
     if title.present? && status.present? 
       where("title like ? AND status = ?","%#{title}%" ,  status)
     elsif title.present?
@@ -25,6 +25,10 @@ class Task < ApplicationRecord
 
   scope :find_self_task, ->(user_id) do
     where("user_id = ?", user_id)
+  end
+
+  scope :search_task_by_limit, ->() do
+    where("deadline_at <= ? AND status != ?", Time.zone.today + 1 , 2)
   end
 
   def deadline_at_cannot_be_in_the_past

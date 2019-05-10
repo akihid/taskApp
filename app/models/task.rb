@@ -28,7 +28,7 @@ class Task < ApplicationRecord
   end
 
   scope :search_task_by_limit, ->() do
-    where("deadline_at <= ? AND status != ?", Time.zone.today - 1 , 2)
+    where("deadline_at <= ? AND status != ?", Time.zone.today + 1 , 2)
   end
 
   def deadline_at_cannot_be_in_the_past

@@ -1,6 +1,6 @@
 class GroupMembersController < ApplicationController
   def create
-    @group = Group.find(params[:group_id])
+    @group = Group.find(params[:id])
     user = User.find_by(mail:params[:mail])
 
     if user.present?
@@ -21,9 +21,12 @@ class GroupMembersController < ApplicationController
   end
 
   def destroy
-    group_member = current_user.group_members.find_by(id:params[:id]).destroy
+    @user = User.find(params[:user_id])
+    group_member = @user.group_members.find_group_member(params[:user_id], params[:id]).last
+    group_member.destroy
+
     redirect_back(fallback_location: request.url)
-    flash[:warning] = "#{favorite.post.user.name}さんを#{favorite.post.user.name}から除外しました。"
+    # flash[:warning] = "#{@group.group_members.name}さんを#{favorite.post.user.name}から除外しました。"
   end
 
   def index

@@ -11,7 +11,7 @@
       <h4><%= @group.name %></h4>
     </div>
     <div class="card-body height_200">
-    <%= form_with(model: [ @group, GroupMember.new], local: true) do |f|%>
+    <%= form_with(url: group_members_path(id: @group.id), local: true) do |f|%>
       <div class="input-group input-group-sm">
         <%= text_field_tag :mail, '', { class: 'form-control', placeholder: '招待したい人のメールアドレスを入力してください' } %>
         <%= f.submit '招待' ,class:"btn-sm"%>
@@ -19,7 +19,10 @@
     <% end %>
         <p class="card-text">メンバー一覧</p>
         <% @group.assign_members.each do |member| %>
-          <p>名前：<%= member.name%> </p>
+          <p>
+            名前：<%= member.name%>
+            <%= link_to '削除' , group_member_path(user_id: member.id) , method: :delete , data:{confirm: "解除してもよろしいですか？"} %>
+          </p>
         <% end %>
         
     </div>

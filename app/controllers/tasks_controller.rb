@@ -65,7 +65,6 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    binding.pry
     params.require(:task).permit(:title , :content , :deadline_at , :priority , :status)
   end
 

@@ -8,6 +8,6 @@ Rails.application.routes.draw do
   resources :tasks
   resources :sessions , only:[:new ,  :create , :destroy]
   resources :groups do
-    resources :members, only:[:create, :destroy]
+    resources :group_members, only:[:create, :destroy]
   end
 end

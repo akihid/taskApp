@@ -11,7 +11,17 @@
       <h4><%= @group.name %></h4>
     </div>
     <div class="card-body height_200">
-        <p class="card-text"></p>
+    <%= form_with(model: [ @group, GroupMember.new], local: true) do |f|%>
+      <div class="input-group input-group-sm">
+        <%= text_field_tag :mail, '', { class: 'form-control', placeholder: '招待したい人のメールアドレスを入力してください' } %>
+        <%= f.submit '招待' ,class:"btn-sm"%>
+      </div>
+    <% end %>
+        <p class="card-text">メンバー一覧</p>
+        <% @group.assign_members.each do |member| %>
+          <p>名前：<%= member.name%> </p>
+        <% end %>
+        
     </div>
     <div class="card-footer align_center">
       <%= link_to t('btn.to_index') , tasks_path ,class:"btn-sm btn-dark"%>

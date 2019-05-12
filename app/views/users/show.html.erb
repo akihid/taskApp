@@ -12,6 +12,7 @@
     </div>
     <div class="card-body height_200">
         <p class="card-text"><%= User.human_attribute_name('mail')%>:<%= @user.mail%></p>
+        <p class="card-text"><%= current_user.assign_group %></p>
     </div>
     <div class="card-footer align_center">
       <%= link_to t('btn.to_index') , tasks_path ,class:"btn-sm btn-dark"%>

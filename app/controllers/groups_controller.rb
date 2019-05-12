@@ -13,6 +13,7 @@ class GroupsController < ApplicationController
     @group = current_user.groups.build(group_params)
 
     if @group.save
+      @group.assign_member(current_user)
       flash[:success] = t('msg.new_group_complete')
       redirect_to groups_path
     else

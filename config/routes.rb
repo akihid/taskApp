@@ -7,5 +7,7 @@ Rails.application.routes.draw do
   resources :users
   resources :tasks
   resources :sessions , only:[:new ,  :create , :destroy]
-  resources :groups
+  resources :groups do
+    resources :members, only:[:create, :destroy]
+  end
 end

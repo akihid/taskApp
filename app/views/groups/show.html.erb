@@ -1,0 +1,21 @@
+<div class="width_50">
+  <h1><%= t('view.show_group_title') %></h1>
+
+  <div class="d-flex align-items-center mt-4 mb-4">
+      <div class="ml-auto posts_button">
+      </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header .bg-dark">
+      <h4><%= @group.name %></h4>
+    </div>
+    <div class="card-body height_200">
+        <p class="card-text"></p>
+    </div>
+    <div class="card-footer align_center">
+      <%= link_to t('btn.to_index') , tasks_path ,class:"btn-sm btn-dark"%>
+    </div>
+  </div>
+
+</div>

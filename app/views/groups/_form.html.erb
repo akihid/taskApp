@@ -1,0 +1,11 @@
+<%= form_with(model: @group , local: true , class:"form_container" ) do |f| %>
+
+  <div class="form-group">
+    <%= f.label :name%>
+    <%= f.text_field :name,class:"form-control"%>
+  </div>
+
+  <div class="align_center">
+    <%= f.submit t('btn.submit') ,class:"btn-sm"%>
+  </div>
+<% end %>

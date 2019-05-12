@@ -1,0 +1,19 @@
+<div class="width_80">
+  <h1><%= t('view.group_title') %></h1>
+
+  <%= link_to t('btn.new') , new_group_path ,class: "btn-sm btn-dark"%>
+  <table class="index_container">
+    <th class="width_20"><%= Group.human_attribute_name('name')%></th>
+    <% @groups.each do |group| %>
+      <tr>
+        <td class="width_20"><%= group.name %></td>
+        <td class="width_30">               
+              <%= link_to t('btn.show'), group_path(group.id),class:"btn-sm btn-secondary"%>
+              <%= link_to t('btn.update') , edit_group_path(group.id) ,class:"btn-sm btn-primary"%>
+              <%= link_to t('btn.destroy'), group_path(group.id), method: :delete, data:{ confirm: t('msg.confirm_destroy')}, class:"btn-sm btn-danger"%>
+        </td>
+      </tr>
+    <% end %>
+
+  </table>
+</div>

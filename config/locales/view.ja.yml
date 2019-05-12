@@ -10,6 +10,9 @@ ja:
     edit_user_title: 会員情報更新
     show_user_title: 会員情報
     admin_title: 管理画面
+    group_title: グループ情報
+    new_group_title: グループ作成
+    edit_group_title: グループ編集
     new_login_title: ログイン
     logout_title: ログアウト
     footer_title: © 2015-2019 Copyright .
@@ -36,6 +39,7 @@ ja:
     destroy: 削除
     show: 詳細
     mypage: マイページ
+    mygroup: グループ一覧
     create_group: グループ作成
     signin: 会員登録
     login: ログイン

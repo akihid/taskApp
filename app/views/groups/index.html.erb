@@ -4,6 +4,7 @@
   <%= link_to t('btn.new') , new_group_path ,class: "btn-sm btn-dark"%>
   <table class="index_container">
     <th class="width_20"><%= Group.human_attribute_name('name')%></th>
+    <th class="width_30"></th>
     <% @groups.each do |group| %>
       <tr>
         <td class="width_20"><%= group.name %></td>

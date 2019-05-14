@@ -11,6 +11,7 @@ class GroupsController < ApplicationController
 
   def create
     @group = current_user.groups.build(group_params)
+    redirect_to groups_path unless owner?
 
     if @group.save
       @group.assign_member(current_user)
@@ -26,14 +27,17 @@ class GroupsController < ApplicationController
   end
 
   def update
+    redirect_to groups_path unless owner?
     @group.update(group_params)
     redirect_to groups_path , notice: "グループ「#{@group.name}」を更新しました。"
   end
 
   def show
+    redirect_to groups_path unless assign_group?
   end
 
   def destroy
+    redirect_to groups_path unless owner?
     @group.destroy
     redirect_to groups_path , notice: "グループ「#{@group.name}」を削除しました。"
   end
@@ -46,5 +50,17 @@ class GroupsController < ApplicationController
 
   def set_group
     @group = Group.find(params[:id])
+  end
+
+  def owner?
+    return true if @group.owner?(current_user)
+    flash[:danger] =  '処理をする権限がありません'
+    false
+  end
+
+  def assign_group?
+    return true if @group.assign?(current_user)
+    flash[:danger] =  '参照する権限がありません'
+    false
   end
 end

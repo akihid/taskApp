@@ -23,7 +23,7 @@ class GroupsController < ApplicationController
   end
 
   def edit
-
+    redirect_to groups_path unless owner?
   end
 
   def update

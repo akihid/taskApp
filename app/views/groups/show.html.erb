@@ -15,7 +15,9 @@
       <% @group.assign_members.each do |member| %>
         <p>
           名前：<%= member.name%>
-          <%= link_to '削除' , group_member_path(user_id: member.id) , method: :delete , data:{confirm: "解除してもよろしいですか？"}, class:"btn-xs btn-danger" %>
+          <% if @group.owner?(current_user) or member.id == current_user.id %>  
+            <%= link_to '削除' , group_member_path(user_id: member.id) , method: :delete , data:{confirm: "解除してもよろしいですか？"}, class:"btn-xs btn-danger" %>
+          <% end %>
         </p>
         <% if member.tasks.present? %>
           <table class="index_container">

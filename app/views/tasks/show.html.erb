@@ -21,8 +21,10 @@
       <%= Label.human_attribute_name('word')%>:<%= @task.task_have_labels.map {|label| label.word}.join(", ") %><br>
     </div>
     <div class="card-footer align_center">
+      <% if @task.user.user_is_yourself?(current_user)%>
       <%= link_to t('btn.update') , edit_task_path(@task.id) ,class:"btn-sm btn-primary"%>
       <%= link_to t('btn.destroy'), task_path(@task.id), method: :delete, data:{ confirm: t('msg.confirm_destroy') } ,class:"btn-sm btn-danger"%>
+    <% end %>
       <%= link_to t('btn.to_index') , tasks_path ,class:"btn-sm btn-dark"%>
     </div>
   </div>

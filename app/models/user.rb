@@ -9,4 +9,9 @@ class User < ApplicationRecord
   has_many :groups
   has_many :group_members, dependent: :destroy
   has_many :assign_groups , through: :group_members , source: :group
+
+  def user_is_yourself?(user)
+    return false if user.nil?
+    self.id == user.id
+  end
 end

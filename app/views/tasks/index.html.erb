@@ -54,7 +54,7 @@
         <td class="width_10"><%= task.priority %></td>
         <td class="width_10"><%= task.status %></td>
         <td class="width_10">               
-          <li class="nav-item dropdown">
+`          <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               ■
             </a>
@@ -63,7 +63,7 @@
               <%= link_to t('btn.update') , edit_task_path(task.id) ,class:"btn-sm btn-primary margin_left5"%>
               <%= link_to t('btn.destroy'), task_path(task.id), method: :delete, data:{ confirm: t('msg.confirm_destroy')} ,class:"btn-sm btn-danger margin_left5"%>
             </div>
-          </li>
+          </li>`
         </td>
       </tr>
     <% end %>

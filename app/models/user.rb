@@ -6,5 +6,12 @@ class User < ApplicationRecord
   validates :password , presence: true , length: {minimum:6}
   has_many :tasks , dependent: :destroy
   enum role: { 管理者:true, 一般:false}
+  has_many :groups
+  has_many :group_members, dependent: :destroy
+  has_many :assign_groups , through: :group_members , source: :group
 
+  def user_is_yourself?(user)
+    return false if user.nil?
+    self.id == user.id
+  end
 end

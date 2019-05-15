@@ -1,0 +1,28 @@
+<div class="width_80">
+  <h1><%= t('view.group_title') %></h1>
+
+  <%= link_to t('btn.new') , new_group_path ,class: "btn-sm btn-dark"%>
+  <table class="index_container">
+    <th class="width_20"><%= Group.human_attribute_name('name')%></th>
+    <th class="width_30"></th>
+    <% @groups.each do |group| %>
+      <tr>
+        <td class="width_20"><%= group.name %></td>
+        <td class="width_30">
+        <% if group.assign?(current_user) %>
+          <%= link_to t('btn.show'), group_path(group.id),class:"btn-sm btn-secondary"%>
+          <%= link_to '脱退',  group_member_path(id: group.id, user_id: current_user.id) , method: :delete , data:{confirm: "脱退してもよろしいですか？"}, class:"btn-sm btn-danger" %>
+        <% else %>
+          <%= link_to '参加', group_members_path(group_id: group.id),  method: :post, class:"btn-sm btn-primary"%>
+        <% end %>
+
+        <% if group.owner?(current_user)%>  
+          <%= link_to t('btn.update') , edit_group_path(group.id) ,class:"btn-sm btn-primary"%>
+          <%= link_to t('btn.destroy'), group_path(group.id), method: :delete, data:{ confirm: t('msg.confirm_destroy')}, class:"btn-sm btn-danger"%>
+        <% end %>
+        </td>
+      </tr>
+    <% end %>
+
+  </table>
+</div>

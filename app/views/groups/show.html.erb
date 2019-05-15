@@ -1,0 +1,41 @@
+<div class="width_50">
+  <h1><%= t('view.show_group_title') %></h1>
+
+  <div class="d-flex align-items-center mt-4 mb-4">
+      <div class="ml-auto posts_button">
+      </div>
+  </div>
+
+  <div class="card index_container">
+    <div class="card-header .bg-dark">
+      <h4><%= @group.name %></h4>
+    </div>
+    <div class="card-body">
+      <p class="card-text">メンバー一覧</p>
+      <% @group.assign_members.each do |member| %>
+        <p>
+          名前：<%= member.name%>
+          <% if @group.owner?(current_user) or member.id == current_user.id %>  
+            <%= link_to '削除' , group_member_path(user_id: member.id) , method: :delete , data:{confirm: "解除してもよろしいですか？"}, class:"btn-xs btn-danger" %>
+          <% end %>
+        </p>
+        <% if member.tasks.present? %>
+          <table class="index_container">
+            <th class="width_20"><%= Task.human_attribute_name('title')%></th>
+            <th class="width_30"></th>
+            <% member.tasks.each do |task|%>
+              <tr>
+                <td class="width_20"><%= task.title%></td>
+                <td class="width_30"><%= link_to t('btn.show'), task_path(task.id),class:"btn-xs btn-secondary"%></td>
+              </tr>
+            <% end %>
+          </table>
+        <% end %>
+      <% end %> 
+    </div>
+    <div class="card-footer align_center">
+      <%= link_to t('btn.to_index') , groups_path ,class:"btn-sm btn-dark"%>
+    </div>
+  </div>
+
+</div>

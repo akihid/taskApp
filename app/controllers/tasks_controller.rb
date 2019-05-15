@@ -41,6 +41,7 @@ class TasksController < ApplicationController
   end
 
   def edit
+    redirect_to tasks_path unless task_edit_authority?
   end
 
   def update
@@ -99,6 +100,13 @@ class TasksController < ApplicationController
       sort = "#{params[:sort]} ASC" if VALID_SORT_COLUMNS.include?(params[:sort]) 
     end
     sort
+  end
+
+
+  def task_edit_authority?
+    return true if @task.user.user_is_yourself?(current_user)
+    flash[:danger] =  '処理をする権限がありません'
+    false
   end
 
   def get_expired_task

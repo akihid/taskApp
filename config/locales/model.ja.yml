@@ -10,6 +10,7 @@ ja:
         priority: '優先度'
         status: '状態'
         count: タスク数
+        image: 画像
         err_msg_deadline_at: ": 過去の日付は使えません"
       user:
         name: "名前"

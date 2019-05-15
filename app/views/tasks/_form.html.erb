@@ -43,6 +43,11 @@
     <%= f.select :status,  Task.statuses.keys ,class:"form-control"%>
   </div>
 
+  <div class="form-group">
+    <%= f.label :image%>
+    <%= f.file_field :image, class:"form-control"%>
+  </div>
+
   <div class="align_center">
     <%= f.submit t('btn.submit') ,class:"btn-sm"%>
     <%= link_to t('btn.to_index') , tasks_path ,class:"btn-sm btn-dark"%>

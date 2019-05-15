@@ -23,10 +23,12 @@
           <table class="index_container">
             <th class="width_20"><%= Task.human_attribute_name('title')%></th>
             <th class="width_30"></th>
+            <th class="width_10"></th>
             <% member.tasks.each do |task|%>
               <tr>
                 <td class="width_20"><%= task.title%></td>
                 <td class="width_30"><%= link_to t('btn.show'), task_path(task.id),class:"btn-xs btn-secondary"%></td>
+                <td class="width_10"><%= task.find_read_task(current_user)? '既読' : '未読'%></td>
               </tr>
             <% end %>
           </table>

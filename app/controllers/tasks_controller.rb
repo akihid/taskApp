@@ -15,6 +15,9 @@ class TasksController < ApplicationController
   end
 
   def show
+    unless @task.find_read_task(current_user).present?
+      @task.create_read_task(current_user)
+    end
   end
 
   def new

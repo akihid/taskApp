@@ -10,6 +10,7 @@ class Task < ApplicationRecord
   has_many :task_labels, dependent: :destroy
   has_many :task_have_labels, through: :task_labels, source: :label
   has_one_attached :image
+  has_many :read_tasks ,dependent: :destroy
 
 
   scope :search_task, ->(title , status) do
@@ -36,5 +37,14 @@ class Task < ApplicationRecord
     if deadline_at.present? && deadline_at < Date.today
       errors.add(:deadline_at, Task.human_attribute_name('err_msg_deadline_at'))
     end
+  end
+
+  def create_read_task(user)
+    read_tasks.create(user: user)
+  end
+
+
+  def find_read_task(user)
+    read_tasks.find_by(user: user)
   end
 end

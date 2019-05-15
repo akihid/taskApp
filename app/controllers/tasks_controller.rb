@@ -90,6 +90,8 @@ class TasksController < ApplicationController
     @tasks = @tasks.find_self_task(current_user.id).search_task(params[:title] ,params[:status])
     @tasks = @tasks.order(sort)
     @tasks = @tasks.page(params[:page]).per(10)
+
+    get_expired_task
   end
 
   def define_sort
@@ -100,9 +102,18 @@ class TasksController < ApplicationController
     sort
   end
 
+
   def task_edit_authority?
     return true if @task.user.user_is_yourself?(current_user)
     flash[:danger] =  '処理をする権限がありません'
     false
+  end
+
+  def get_expired_task
+    if session[:first_login_flg]
+      @expired_tasks = Task.find_self_task(current_user.id).search_task_by_limit
+      flash.now[:danger] = t('msg.alert_deadline') if @expired_tasks.size > 0
+      session.delete(:first_login_flg)
+    end
   end
 end

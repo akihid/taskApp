@@ -31,6 +31,7 @@ ja:
     confirm_logout: ログアウトしますがよろしいですか？
     confirm_destroy: 削除しますがよろしいですか？
     new_group_complete: グループ作成完了
+    alert_deadline:  終了間近または期限の過ぎたタスクが存在します
   btn:
     submit: 登録
     search: 検索

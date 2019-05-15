@@ -1,6 +1,24 @@
+<% if @expired_tasks.present? %>
+  <table class="index_container">
+    <th class="width_20"><%= Task.human_attribute_name('title')%></th>
+    <th class="width_20"><%= Task.human_attribute_name('deadline_at') %></th>
+    <th class="width_20"><%= Task.human_attribute_name('priority') %></th>
+    <th class="width_10"><%= Task.human_attribute_name('status') %></th>
+
+    <% @expired_tasks.each do |expired_task| %>
+      <tr>
+        <td class="width_20"><%= expired_task.title %></td>
+        <td class="width_20"><%= expired_task.deadline_at %></td>
+        <td class="width_10"><%= expired_task.priority %></td>
+        <td class="width_10"><%= expired_task.status %></td>
+      </tr>
+    <% end %>
+  </table>
+<% end %>
+
 <div class="width_80">
   <h1><%= t('view.index_title') %></h1>
-
+  
   <div class="search_container">
 
     <%= form_with(url: tasks_path , method: 'get' , local: true)do |f| %>
@@ -51,4 +69,5 @@
     <% end %>
 
   </table>
+
 </div>

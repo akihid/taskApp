@@ -70,6 +70,9 @@ th,td{
   text-align: center;
   height: 20px;
 }
+table{
+  overflow: scroll;
+}
 
 .logo_image img{
   width:110px;
@@ -141,4 +144,10 @@ footer p{
 
 .margin_left5{
   margin-left: 15px;
+}
+
+.container{
+  width: 100%;
+  margin:0 auto;
+  padding-bottom: 30px;
 }

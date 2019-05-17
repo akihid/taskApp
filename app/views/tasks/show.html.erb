@@ -13,7 +13,8 @@
         <%= Task.human_attribute_name('deadline_at')%>:<%= @task.deadline_at%><br>
         <%= Task.human_attribute_name('priority')%>:<%= @task.priority%><br>
         <%= Task.human_attribute_name('status')%>:<%= @task.status%><br>
-        
+        <%= Task.human_attribute_name('image')%>:
+        <%= link_to( File.basename(url_for(@task.image)), @task.image) if @task.image.attached?%><br>
       </div>
     </div>
     <div class="card-body height_200">

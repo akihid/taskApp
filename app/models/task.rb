@@ -9,6 +9,7 @@ class Task < ApplicationRecord
   validate :deadline_at_cannot_be_in_the_past, on: :create
   has_many :task_labels, dependent: :destroy
   has_many :task_have_labels, through: :task_labels, source: :label
+  has_one_attached :image
   has_many :read_tasks ,dependent: :destroy
 
 

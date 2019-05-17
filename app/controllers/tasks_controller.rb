@@ -50,7 +50,7 @@ class TasksController < ApplicationController
   def update
     if @task.update(task_params)
       @task.task_labels.destroy_all
-      params[:task][:label_id].each do |label|
+      (params[:task][:label_id] || []).each do |label|
         @task.task_labels.create(task_id:@task.id , label_id:label.to_i)
       end
       flash[:success] = t('msg.update_complete')
@@ -69,7 +69,7 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:title , :content , :deadline_at , :priority , :status)
+    params.require(:task).permit(:title , :content , :deadline_at , :priority , :status, :image)
   end
 
   def set_task

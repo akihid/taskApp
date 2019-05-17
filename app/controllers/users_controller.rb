@@ -29,7 +29,7 @@ before_action :set_user , only:[:show]
   end
 
   def user_params
-    params.require(:user).permit(:name , :mail , :password , :password_confirmation)
+    params.require(:user).permit(:name , :mail , :password , :password_confirmation, :icon)
   end
 
   def check_another_user

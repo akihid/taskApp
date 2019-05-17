@@ -34,6 +34,11 @@
     <%= f.select :role,  User.roles.keys ,class:"form-control"%>
   </div>
 
+  <div class="form-group">
+    <%= f.label :icon%>
+    <%= f.file_field :icon, class:"form-control"%>
+  </div>
+
   <div class="align_center">
     <%= f.submit t('btn.submit') ,class:"btn-sm"%>
     <%= link_to t('btn.to_index') , admin_users_path ,class:"btn-sm btn-dark"%>

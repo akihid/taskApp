@@ -10,6 +10,7 @@ class User < ApplicationRecord
   has_many :group_members, dependent: :destroy
   has_many :assign_groups , through: :group_members , source: :group
   has_many :read_tasks ,dependent: :destroy
+  has_one_attached :icon
 
   def user_is_yourself?(user)
     return false if user.nil?

@@ -1,11 +1,8 @@
 class TasksController < ApplicationController
-
-  # 並び替えに使用していいカラムの配列（paramで受け取るもの)
-  VALID_SORT_COLUMNS = %w(deadline_at , priority)
-
   before_action :set_task , only:[:edit ,:update , :destroy ,:show]
   before_action :set_label_checked_already , only:[:edit ,:update]
 
+  PER_PAGE = 10
   def index
     unless logged_in?
       redirect_to new_session_path 
@@ -81,8 +78,6 @@ class TasksController < ApplicationController
   end
 
   def define_tasks
-    sort = define_sort
-
     if params[:label].present?
       label = Label.find(params[:label])
       @tasks = label.label_used_task
@@ -91,20 +86,13 @@ class TasksController < ApplicationController
     end
 
     @tasks = @tasks.find_self_task(current_user.id).search_task(params[:title] ,params[:status])
-    @tasks = @tasks.order(sort)
-    @tasks = @tasks.page(params[:page]).per(10)
+    
+    # @tasks - @tasks.order_task(params[:label])
+    @tasks = @tasks.order_task(params[:sort])
+    @tasks = @tasks.page(params[:page]).per(PER_PAGE)
 
     get_expired_task
   end
-
-  def define_sort
-    sort = "created_at DESC"
-    if params[:sort]
-      sort = "#{params[:sort]} ASC" if VALID_SORT_COLUMNS.include?(params[:sort]) 
-    end
-    sort
-  end
-
 
   def task_edit_authority?
     return true if @task.user.user_is_yourself?(current_user)
@@ -114,7 +102,7 @@ class TasksController < ApplicationController
 
   def get_expired_task
     if session[:first_login_flg]
-      @expired_tasks = Task.find_self_task(current_user.id).search_task_by_limit
+      @expired_tasks = current_user.tasks.search_task_by_limit
       flash.now[:danger] = t('msg.alert_deadline') if @expired_tasks.size > 0
       session.delete(:first_login_flg)
     end

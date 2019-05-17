@@ -9,6 +9,8 @@
   <div class="card">
     <div class="card-header .bg-dark">
       <h4><%= @user.name %></h4>
+      <%= User.human_attribute_name('icon')%>:
+      <%= image_tag(@user.icon.variant(resize:'100x100')) if @user.icon.attached?%><br>
     </div>
     <div class="card-body height_200">
         <p class="card-text"><%= User.human_attribute_name('mail')%>:<%= @user.mail%></p>

@@ -41,6 +41,7 @@ ja:
     destroy: 削除
     show: 詳細
     mypage: マイページ
+    label: ラベル一覧
     mygroup: グループ一覧
     create_group: グループ作成
     signin: 会員登録

@@ -1,0 +1,10 @@
+<%= month_calendar(attribute: :deadline_at, events: @tasks) do |date, tasks|  %>
+
+  <%= date %>
+
+  <% tasks.each do |task| %>
+    <div>
+      <p class='deadline_task'>期限タスク:<%= link_to task.title, task,class: "btn btn-danger  btn-sm" %></p>
+    </div>
+  <% end %>
+<% end %>

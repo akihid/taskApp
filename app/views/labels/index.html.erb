@@ -1,0 +1,13 @@
+<div class="width_80">
+  <h1>ラベル一覧</h1>
+  <table class="index_container">
+    <th class="width_20"><%= Label.human_attribute_name('word')%></th>
+
+    <% @labels.each do |label| %>
+      <tr>
+        <td class="width_20"><%= label.word %></td>
+      </tr>
+    <% end %>
+
+  </table>
+</div>

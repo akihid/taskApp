@@ -20,6 +20,8 @@ before_action :set_user , only:[:show]
 
   def show
     check_another_user
+    @tasks = current_user.tasks.search_task_by_limit
+    TaskMailer.deadline_at(current_user, @tasks).deliver
   end
 
   private

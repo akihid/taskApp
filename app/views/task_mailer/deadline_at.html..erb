@@ -1,0 +1,5 @@
+<h1><%= @user.name %>さんの終了間近のタスクがあります</h1>
+
+<% @tasks.each do | task | %>
+  <p>タスク名：<%= task.title %></p>/<p>終了期日：<%= task.deadline_at%></p>
+<% end %>

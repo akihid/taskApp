@@ -41,7 +41,7 @@ class Task < ApplicationRecord
   end
 
   scope :search_task_by_limit, ->() do
-    where("deadline_at <= ? AND status != ?", Time.zone.today + 1 , 2)
+    where("deadline_at <= ? AND status != ?", Time.zone.today + 7 , 2)
   end
 
   scope :order_task, ->(sort_param) do

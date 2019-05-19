@@ -29,6 +29,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'spring-commands-rspec'
   gem 'launchy'
+  gem 'letter_opener_web'
 end
 
 group :development do

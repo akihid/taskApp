@@ -20,6 +20,7 @@ before_action :set_user , only:[:show]
 
   def show
     check_another_user
+    ContactMailer.contact_mail(current_user).deliver 
   end
 
   private

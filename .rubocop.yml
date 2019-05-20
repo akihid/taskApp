@@ -32,3 +32,6 @@ AllCops:
     - config/unicorn.rb
     - config/unicorn_staging.rb
     - tmp/**/*
+    - 'bin/**/*'
+    - 'node_modules/**/*'
+    - 'vendor/**/*'

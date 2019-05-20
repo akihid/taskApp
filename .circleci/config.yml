@@ -10,12 +10,12 @@ jobs: # a collection of steps
           BUNDLE_RETRY: 3
           BUNDLE_PATH: vendor/bundle
           PGHOST: 127.0.0.1
-          PGUSER: circleci-demo-ruby
+          PGUSER: taskManagementApp
           RAILS_ENV: test
       - image: circleci/postgres:9.5-alpine # database image
         environment: # environment variables for database
           POSTGRES_USER: taskManagementApp
-          POSTGRES_DB: taskManagementApp_development
+          POSTGRES_DB: taskManagementApp_test
           POSTGRES_PASSWORD: ""
     steps: # a collection of executable commands
       - checkout # special step to check out source code to working directory

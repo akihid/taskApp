@@ -12,7 +12,7 @@ RSpec.feature "会員登録機能", type: :feature do
   scenario "会員登録成功" do
 
     visit new_admin_user_path
-save_and_open_page
+
     fill_in 'user[name]', with: 'テスト'
     fill_in 'user[mail]', with: 'test@co.jp'
     fill_in 'user[password]', with: '123456'

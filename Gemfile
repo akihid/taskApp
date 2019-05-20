@@ -32,6 +32,7 @@ group :development, :test do
   gem 'letter_opener_web'
   gem "rspec_junit_formatter"
   gem 'rubocop'
+  gem 'rubocop-performance'
 end
 
 group :development do

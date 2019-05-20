@@ -17,6 +17,7 @@ gem 'bcrypt', '3.1.11'
 gem 'mini_magick' 
 gem 'simple_calendar'
 gem "chartkick"
+gem "rspec_junit_formatter"
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

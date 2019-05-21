@@ -17,6 +17,8 @@ gem 'bcrypt', '3.1.11'
 gem 'mini_magick' 
 gem 'simple_calendar'
 gem "chartkick"
+gem 'letter_opener_web'
+gem 'letter_opener'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
@@ -29,7 +31,6 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'spring-commands-rspec'
   gem 'launchy'
-  gem 'letter_opener_web'
 end
 
 group :development do

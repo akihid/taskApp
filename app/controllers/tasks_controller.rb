@@ -26,18 +26,27 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = current_user.tasks.build(task_params)
-    if @task.save
-      if params[:task][:label_id].present?
-        params[:task][:label_id].each do |label|
-          @task.task_labels.create(task_id:@task.id , label_id:label.to_i)
-        end
-      end
+    repository = TaskCreateService.new(task_params)
+    if repository.run(current_user)
       flash[:success] = t('msg.new_complete')
       redirect_to tasks_path
     else
+      # notice: repository.errors.first
       render 'new'
     end
+
+    # @task = current_user.tasks.build(task_params)
+    # if @task.save
+    #   if params[:task][:label_id].present?
+    #     params[:task][:label_id].each do |label|
+    #       @task.task_labels.create(task_id:@task.id , label_id:label.to_i)
+    #     end
+    #   end
+    #   flash[:success] = t('msg.new_complete')
+    #   redirect_to tasks_path
+    # else
+    #   render 'new'
+    # end
   end
 
   def edit
@@ -85,7 +94,7 @@ class TasksController < ApplicationController
       @tasks = Task.all
     end
 
-    @tasks = @tasks.find_self_task(current_user.id).search_task(params[:title] ,params[:status])
+    @tasks = @tasks.find_self_task(current_user.id).search_task(params[:title] ,params[:status]).includes(:read_tasks)
     
     # @tasks - @tasks.order_task(params[:label])
     @tasks = @tasks.order_task(params[:sort])

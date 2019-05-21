@@ -5,7 +5,7 @@ class BaseService
 
   # params = { name: "aaa", ... }
   # BaseService.name
- 
+
   def initialize(h = {})
     @attr = h.dup
     errors = []
@@ -16,23 +16,23 @@ class BaseService
         end
         def #{prop.to_s}=(arg)
           @attr["#{prop}".intern]= arg
-       end
+        end
       }
     end
   end
- end
- 
- module BaseServiceImpl
- 
+end
+
+module BaseServiceImpl
+
   def run
     raise NotImplementedError
   end
- 
+
   def build_associate
     raise NotImplementedError
   end
- 
+
   def validate
     raise NotImplementedError
   end
- end
+end

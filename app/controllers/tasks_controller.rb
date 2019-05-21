@@ -27,26 +27,12 @@ class TasksController < ApplicationController
 
   def create
     repository = TaskCreateService.new(task_params)
-    if repository.run(current_user)
-      flash[:success] = t('msg.new_complete')
-      redirect_to tasks_path
+    if repository.run
+      redirect_to tasks_path#, flash[:success] t('msg.new_complete')
     else
-      # notice: repository.errors.first
-      render 'new'
+      @task = repository.task
+      render 'new', notice: repository.errors.first
     end
-
-    # @task = current_user.tasks.build(task_params)
-    # if @task.save
-    #   if params[:task][:label_id].present?
-    #     params[:task][:label_id].each do |label|
-    #       @task.task_labels.create(task_id:@task.id , label_id:label.to_i)
-    #     end
-    #   end
-    #   flash[:success] = t('msg.new_complete')
-    #   redirect_to tasks_path
-    # else
-    #   render 'new'
-    # end
   end
 
   def edit
@@ -75,7 +61,15 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:title , :content , :deadline_at , :priority , :status, :image)
+    params.require(:task).permit(
+      :title ,
+      :content,
+      :deadline_at, 
+      :priority, 
+      :status, 
+      :image,
+      label_ids: []
+    )
   end
 
   def set_task

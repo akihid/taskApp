@@ -8,12 +8,11 @@ class Task < ApplicationRecord
   belongs_to :user
   validate :deadline_at_cannot_be_in_the_past, on: :create
   has_many :task_labels, dependent: :destroy
-  has_many :task_have_labels, through: :task_labels, source: :label
+  has_many :labels, through: :task_labels
   has_one_attached :image
   has_many :read_tasks ,dependent: :destroy
 
   VALID_SORT_COLUMNS = %w(deadline_at , priority)
-
 
   scope :search_title, ->(title) do
     where("title like ?","%#{title}%") if title.present?

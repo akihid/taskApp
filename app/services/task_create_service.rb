@@ -1,36 +1,52 @@
 class TaskCreateService < BaseService
   include BaseServiceImpl
+  include SessionsHelper
 
   concerning :TaskBuilder do
     # attr_reader :
-    def task(user)
-      @task = user.tasks.build(@attr)
+    def task
+      @task ||= Task.new(@attr)
+    end
+
+    # def task=(attributes)
+    #   @task = Task.new(attributes)
+    # end
+  end
+
+  concerning :LabelsBuilder do
+    attr_reader :label_ids
+    def labels
+      if label_ids.nil?
+        @labels ||= []
+      else
+        @labels ||= label_ids.map { |id| Label.find(id) }
+      end
     end
   end
 
-  # concerning :TaskLabelBuilder do
-  #   # attr_reader :task_id
-  #   def task_label
-  #     @task_label |= Task.friendly.find(team_id)
-  #   end
-  # end
-
-  def run(user)
+  def run()
     return false if !validate
-    task(user)
-    binding.pry
-    return save_task
+    build_associate
+    if task.save
+      return true
+    else
+      @errors.push(task.errors.full_messages.first)
+      return false
+    end
   end
 
   private
 
   def validate
     @errors = []
+    @errors.push('login is required') unless User.current_user
     return @errors.length == 0
   end
 
-  def save_task
-    @task.save
+  def build_associate
+    task.labels = labels if labels.length > 0
+    task.user = User.current_user
+    task.user_id = User.current_user.id
   end
 end
 

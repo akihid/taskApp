@@ -12,7 +12,7 @@
   
   <div class="form-group">
     <% Label.all.each do |label|%>
-      <%= f.check_box :label_id, {multiple: true, checked: label[:checked], disabled: label[:disabled], include_hidden: false,
+      <%= f.check_box :label_ids, {multiple: true, checked: label[:checked], disabled: label[:disabled], include_hidden: false,
                                   :checked => @label_checked_already.nil? ? false : @label_checked_already.include?(label.id)
                                   } ,label[:id],class:"form-control"%>
       <%= label.word%>

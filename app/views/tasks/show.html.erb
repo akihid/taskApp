@@ -19,7 +19,7 @@
     </div>
     <div class="card-body height_200">
       <p class="card-text"><%= simple_format(@task.content) %></p>
-      <%= Label.human_attribute_name('word')%>:<%= @task.task_have_labels.map {|label| label.word}.join(", ") %><br>
+      <%= Label.human_attribute_name('word')%>:<%= @task.labels.map {|label| label.word}.join(", ") %><br>
     </div>
     <div class="card-footer align_center">
       <% if @task.user.user_is_yourself?(current_user)%>

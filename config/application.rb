@@ -32,6 +32,8 @@ module TaskManagementApp
     # Don't generate system test files.
     config.generators.system_tests = nil
 
+    config.autoload_paths += Dir["#{config.root}/app/services/"]
+
     config.generators do |g|
       g.test_framework :rspec,
                        fixtures: true,

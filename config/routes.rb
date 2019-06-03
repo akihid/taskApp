@@ -12,5 +12,5 @@ Rails.application.routes.draw do
   resources :group_members, only:[:create, :destroy]
   resources :labels , only:[:index]
   
-  mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
+  mount LetterOpenerWeb::Engine, at: "/letter_opener"
 end

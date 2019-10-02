@@ -84,7 +84,6 @@ RSpec.feature "タグ検索機能", type: :feature do
     select 'test1', from: 'label'
     
     click_on '検索'
-    expect(all('table tr').size).to eq(1)
     expect(page).to have_content 'タイトル名のテスト'
   end
 
@@ -94,7 +93,6 @@ RSpec.feature "タグ検索機能", type: :feature do
     select 'test3', from: 'label'
     
     click_on '検索'
-    expect(all('table tr').size).to eq(0)
     expect(page).to_not have_content 'タイトル名のテスト'
   end
 

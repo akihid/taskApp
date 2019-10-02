@@ -19,6 +19,11 @@ before_action :set_user , only:[:show]
   end
 
   def show
+    begin
+      raise 'Something went wrong!'
+    rescue => exception
+      Bugsnag.notify(exception)
+    end
     check_another_user
   end
 

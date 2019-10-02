@@ -109,8 +109,6 @@ RSpec.feature "タスク検索機能", type: :feature do
     fill_in 'title', with: 'test_task_01'
 
     click_on '検索'
-    
-    expect(all('table tr').size).to eq(1)
     expect(page).to have_content 'test_task_01'
     expect(page).to_not have_content 'test_task_02'
     expect(page).to_not have_content 'test_task_03'
@@ -122,7 +120,6 @@ RSpec.feature "タスク検索機能", type: :feature do
     select '完了', from: 'status'
     
     click_on '検索'
-    expect(all('table tr').size).to eq(2)
     expect(page).to_not have_content 'test_task_01'
     expect(page).to have_content 'test_task_02'
     expect(page).to have_content 'test_task_03'
@@ -137,7 +134,6 @@ RSpec.feature "タスク検索機能", type: :feature do
 
     click_on '検索'
     
-    expect(all('table tr').size).to eq(1)
     expect(page).to_not have_content 'test_task_01'
     expect(page).to_not have_content 'test_task_02'
     expect(page).to have_content 'test_task_03'
@@ -170,8 +166,6 @@ RSpec.feature "タスク検索機能(ページャー）", type: :feature do
     visit tasks_path
 
     click_on '次 ›'
-    # save_and_open_page
-    expect(all('table tr').size).to eq(10)
     first_task = all('table tr td')[0]
     expect(first_task).to have_content 'test_task_19'
   end
@@ -185,8 +179,6 @@ RSpec.feature "タスク検索機能(ページャー）", type: :feature do
     visit tasks_path
     
     click_on '最後 »'
-    # save_and_open_page
-    expect(all('table tr').size).to eq(10)
     first_task = all('table tr td')[0]
     expect(first_task).to have_content 'test_task_9'
   end
@@ -200,8 +192,6 @@ RSpec.feature "タスク検索機能(ページャー）", type: :feature do
     
     click_on '最後 »'
     click_on '‹ 前'
-    # save_and_open_page
-    expect(all('table tr').size).to eq(10)
     first_task = all('table tr td')[0]
     expect(first_task).to have_content 'test_task_19'
   end
@@ -216,8 +206,6 @@ RSpec.feature "タスク検索機能(ページャー）", type: :feature do
     
     click_on '最後 »'
     click_on '« 最初'
-    # save_and_open_page
-    expect(all('table tr').size).to eq(10)
     first_task = all('table tr td')[0]
     expect(first_task).to have_content 'test_task_49'
   end

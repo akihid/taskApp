@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.6.2'
+ruby '2.6.0'
 gem 'rails', '~> 5.2.3'
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'jbuilder', '~> 2.5'
@@ -17,6 +17,8 @@ gem 'bcrypt', '3.1.11'
 gem 'mini_magick' 
 gem 'simple_calendar'
 gem "chartkick"
+gem 'bugsnag'
+gem 'dotenv-rails'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
@@ -30,6 +32,9 @@ group :development, :test do
   gem 'spring-commands-rspec'
   gem 'launchy'
   gem 'letter_opener_web'
+  gem "rspec_junit_formatter"
+  gem 'rubocop'
+  gem 'rubocop-performance'
 end
 
 group :development do

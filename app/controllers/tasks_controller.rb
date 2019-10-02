@@ -26,17 +26,12 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = current_user.tasks.build(task_params)
-    if @task.save
-      if params[:task][:label_id].present?
-        params[:task][:label_id].each do |label|
-          @task.task_labels.create(task_id:@task.id , label_id:label.to_i)
-        end
-      end
-      flash[:success] = t('msg.new_complete')
-      redirect_to tasks_path
+    repository = TaskCreateService.new(task_params)
+    if repository.run
+      redirect_to tasks_path#, flash[:success] t('msg.new_complete')
     else
-      render 'new'
+      @task = repository.task
+      render 'new', notice: repository.errors.first
     end
   end
 
@@ -66,7 +61,15 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:title , :content , :deadline_at , :priority , :status, :image)
+    params.require(:task).permit(
+      :title ,
+      :content,
+      :deadline_at, 
+      :priority, 
+      :status, 
+      :image,
+      label_ids: []
+    )
   end
 
   def set_task
@@ -85,7 +88,7 @@ class TasksController < ApplicationController
       @tasks = Task.all
     end
 
-    @tasks = @tasks.find_self_task(current_user.id).search_task(params[:title] ,params[:status])
+    @tasks = @tasks.find_self_task(current_user.id).search_task(params[:title] ,params[:status]).includes(:read_tasks)
     
     # @tasks - @tasks.order_task(params[:label])
     @tasks = @tasks.order_task(params[:sort])
